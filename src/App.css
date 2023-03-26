@@ -1,0 +1,158 @@
+:root:root {
+  --adm-color-primary: #020202;
+  --adm-color-danger: #da4450
+}
+
+.adm-tabs-tab-wrapper {
+  padding: 5px 26px !important;
+}
+
+.TabBar {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  height: 7vh;
+  background-color: #F7F7F7;
+  /* right: 0; */
+}
+
+.TabBar .adm-tab-bar-wrap {
+  min-height: 7vh
+}
+
+.TabBar-icon {
+  width: 6vw;
+}
+
+
+
+.TabBar .adm-tab-bar-item-title {
+  color: #000;
+}
+
+.app-content {
+  height: 1000px;
+}
+
+.background-top {
+  width: 100vw;
+  height: 440px;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-image: url(./img/b1.png);
+  position: relative;
+}
+
+.anchor-point {
+  width: 50px;
+  height: 50px;
+  border: 1px solid red;
+  position: absolute;
+  top: 8vh;
+  left: 31vw;
+}
+
+
+.listPage {
+  /* width: 100vw; */
+  height: 1000px;
+  /* background-color: red; */
+  position: relative;
+
+}
+
+.listPage-NavBar {
+  /* width: 100vw; */
+  /* position: absolute; */
+  /* left: 0;
+  top: 0; */
+}
+
+.adm-nav-bar-back-arrow {
+  font-size: 1.3rem !important;
+}
+
+.adm-nav-bar-right {
+  margin-right: -0.2rem;
+}
+
+.SearchOutline {
+  font-size: 1.4rem !important;
+}
+
+
+.filter {
+  width: 100vw;
+  height: 5vh;
+  font-size: 0.8rem;
+  line-height: 5vh;
+  display: flex;
+  justify-content: space-between
+}
+
+.uptriangle {
+  width: 0px;
+  height: 0px;
+  border-width: 6px 5px;
+  border-color: #000 transparent transparent;
+  border-style: solid;
+  display: inline-block;
+  position: absolute;
+  top: 1.1rem;
+  left: 63px;
+}
+
+.filter-top-left {
+  display: flex;
+}
+
+.filter-top {
+  position: relative;
+  margin: 0 5px 0 15px;
+}
+
+.filter-date .uptriangle {
+  left: 3.1rem;
+}
+
+.filter-user {
+  position: relative;
+  left: 0.3rem;
+}
+
+.filter-user .uptriangle {
+  left: 3.5rem;
+}
+
+.filter-top-right {
+  width: 3rem;
+  position: relative;
+}
+
+.filter-top-right .uptriangle {
+  position: absolute;
+  left: 2rem;
+
+}
+
+.listPage-top {
+  position: fixed;
+  top: 0;
+  z-index: 999999;
+  background-color: #F7F7F7;
+}
+
+.listPage-content {
+  width: 100vw;
+  height: 100vh;
+  /* background-color: red; */
+  margin-top: 13vh;
+  /* margin-bottom: 203vh; */
+}
+.listPage-content .adm-pull-to-refresh{
+  /* margin-bottom: 203vh; */
+}
+
+.listPage-content-view {
+  /* height: 200vh; */
+}
