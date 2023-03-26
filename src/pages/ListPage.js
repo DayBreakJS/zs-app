@@ -31,6 +31,8 @@ const _dataColumns = [
 const ListPage = () => {
   const navigate = useNavigate()
   const [date, setDate] = React.useState('2023')
+  const [month, setMonth] = React.useState('3')
+
   const [dataList, setDataList] = useState([])
   const [hasMore, setHasMore] = useState(true)
   const [dataColumns, setDataColumns] = React.useState(_dataColumns)
@@ -82,7 +84,7 @@ const ListPage = () => {
         <div className='filter'>
           <div className="filter-top-left">
             <div className='filter-top filter-date' onClick={() => setVisible(true)} >
-              2023.02
+              {date}.{month == '3' ? '03' : month}
               <div className="uptriangle"></div>
             </div>
             <div className=' filter-top filter-user'>
@@ -113,7 +115,7 @@ const ListPage = () => {
         >
           {
             dataList.map(item => {
-              return <MonthCard {...item} />
+              return <MonthCard {...item} setDate={setDate} setMonth={setMonth} />
             })
           }
             <InfiniteScroll

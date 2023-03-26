@@ -1,25 +1,48 @@
 /* eslint-disable jsx-a11y/alt-text */
 
 import React from 'react'
-import { Badge, Space, Button, Icon } from 'antd-mobile'
+import { Space, Button } from 'antd-mobile'
 import './css.css'
-import { HistogramOutline, PayCircleOutline } from 'antd-mobile-icons'
+import _ from 'lodash'
+import { HistogramOutline } from 'antd-mobile-icons'
 const MonthCard = (props) => {
-  const { year, month, income, expend } = props
-
+  const { year, month, income, expend, setDate , setMonth } = props
+  
   const _toFixed = (n) => {
     const num = Number(n);//将字符串转换为Number类型
     const result = num.toFixed(2);//将Number类型转换为保留两位数的字符串数据
     return result
   }
   
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const handleScroll = React.useCallback(_.debounce((e) => {
+    const curDom = document.getElementById(`MonthCard-img-text${year}-${month}`).getBoundingClientRect()
+    if (curDom.top <= 111 && curDom.top >= -149) {
+      setDate(year)
+      setMonth(month)
+    }
+
+    if (curDom.top >= -70 && curDom.top <= 90) {
+      setDate(year)
+      setMonth(month)
+    }
+  }, 100), []);
+
+  React.useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [handleScroll]);
+
   return (
     <div className='MonthCard'>
       <div className='MonthCard-img'>
         <img src={require('./../img/m1.jpg')} />
         <div className='MonthCard-img-box'>
           <Space>
-            <span className='MonthCard-img-text'>
+            <span id={`MonthCard-img-text${year}-${month}`} className='MonthCard-img-text'>
               <span className='MonthCard-img-box-month'>{month.replace(/\b(0+)/gi, "")}</span>
               <span className='MonthCard-img-box-unit'>月</span>
               {year !=='2023'&&<span>/{ year}</span>}

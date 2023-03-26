@@ -46,5 +46,5 @@ export default (data) => {
       category: item.category
     });
   });
-  return result
+  return result.sort((a, b) => a.month - b.month).sort((a, b) => a.year - b.year)
 }
