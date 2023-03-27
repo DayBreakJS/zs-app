@@ -107,3 +107,18 @@
   margin-top: 0.7rem;
 }
 
+
+/* MessageSwiper */
+.MessageSwiper .adm-swiper-vertical{
+  height: 45px;
+  margin-bottom: 0.5rem;
+  margin-top: -0.5rem;
+}
+.MessageSwiper .message {
+  font-size: 1rem;
+}
+.MessageSwiper .adm-button.adm-button-mini{
+  padding: 8px 12px;
+  border: none;
+  border-radius:12px;
+}

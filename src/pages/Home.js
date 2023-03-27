@@ -3,6 +3,7 @@
 import React from 'react'
 import { Badge, TabBar } from 'antd-mobile'
 import { useNavigate } from "react-router-dom";
+import { HomeSwiper, MessageSwiper } from '../components/HomeSwiper'
 // import createHistory from 'history/createBrowserHistory'
 // const history = createHistory();
 const Home = () => {
@@ -47,9 +48,17 @@ const Home = () => {
             navigate('/listPage')
             window.location.reload()
           }}>
-            anchor point
+            {/* anchor point */}
           </div>
         </div>
+        <MessageSwiper/>
+        <HomeSwiper />
+        <div className='back b2'> </div>
+        <div className='back b3'> </div>
+        <div className='back b4'> </div>
+        <div className='back b5'> </div>
+        <div className='home-footer'>上滑去社区看看</div>
+
       </div>
       <TabBar className='TabBar' >
         {tabs.map((item, i) => (

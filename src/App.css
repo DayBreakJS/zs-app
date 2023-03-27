@@ -25,18 +25,19 @@
 }
 
 
-
 .TabBar .adm-tab-bar-item-title {
   color: #000;
 }
-
+/* 首页高度 */
 .app-content {
-  height: 1000px;
+  /* height: 356vh; */
+  height: 3260px;
+  /* background-color: #F7F8F8; */
 }
 
 .background-top {
   width: 100vw;
-  height: 440px;
+  height: 51vh;
   background-repeat: no-repeat;
   background-size: 100% 100%;
   background-image: url(./img/b1.png);
@@ -46,7 +47,7 @@
 .anchor-point {
   width: 50px;
   height: 50px;
-  border: 1px solid red;
+  /* border: 1px solid red; */
   position: absolute;
   top: 8vh;
   left: 31vw;
@@ -149,10 +150,45 @@
   margin-top: 13vh;
   /* margin-bottom: 203vh; */
 }
-.listPage-content .adm-pull-to-refresh{
+
+.listPage-content .adm-pull-to-refresh {
   /* margin-bottom: 203vh; */
 }
 
 .listPage-content-view {
   /* height: 200vh; */
+}
+
+.back {
+  width: 100vw;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+.b2 {
+  height: 69vh;
+  background-image: url(./img/b2.png);
+}
+
+.b3 {
+  height: 70vh;
+  background-image: url(./img/b3.png);
+}
+
+.b4 {
+  height: 80vh;
+  background-image: url(./img/b4.png);
+}
+
+.b5 {
+  height: 60vh;
+  background-image: url(./img/b5.png);
+}
+
+.home-footer {
+  width: 100vw;
+  height: 4vh;
+  background-color: #F7F8F8;
+  text-align: center;
+  color: #a7a5a5;
 }
