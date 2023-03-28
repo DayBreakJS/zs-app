@@ -1,0 +1,30 @@
+.detail-Page {
+  height: 100vh;
+  background: #F8F8F8;
+  clear: both;
+}
+
+.detail-Page-NavBar {
+  padding: 0 1.4rem;
+  height: 6.5vh;
+}
+
+.detail-Page-card {
+  width: 91vw;
+  margin: 0 auto;
+  background-color: #fff;
+  height: 34.5vh;
+  border-radius: 8px;
+  margin-top: 0.3rem;
+  clear: both;
+}
+
+.detail-Page-card2 {
+  width: 91vw;
+  margin: 0 auto;
+  margin-top: 1rem;
+  background-color: #fff;
+  height: 28vh;
+  border-radius: 8px;
+  clear: both;
+}

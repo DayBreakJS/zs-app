@@ -1,19 +1,23 @@
 /* eslint-disable jsx-a11y/alt-text */
 
 import React from 'react'
-import { Space, Button } from 'antd-mobile'
+import { Space, Button, Tag } from 'antd-mobile'
 import './css.css'
 import _ from 'lodash'
 import { HistogramOutline } from 'antd-mobile-icons'
+import { useNavigate } from "react-router-dom";
+
+
 const MonthCard = (props) => {
-  const { year, month, income, expend, setDate , setMonth } = props
-  
+  const { year, month, income, expend, setDate, setMonth } = props
+  const navigate = useNavigate()
+
   const _toFixed = (n) => {
     const num = Number(n);//将字符串转换为Number类型
     const result = num.toFixed(2);//将Number类型转换为保留两位数的字符串数据
     return result
   }
-  
+
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleScroll = React.useCallback(_.debounce((e) => {
@@ -45,7 +49,7 @@ const MonthCard = (props) => {
             <span id={`MonthCard-img-text${year}-${month}`} className='MonthCard-img-text'>
               <span className='MonthCard-img-box-month'>{month.replace(/\b(0+)/gi, "")}</span>
               <span className='MonthCard-img-box-unit'>月</span>
-              {year !=='2023'&&<span>/{ year}</span>}
+              {year !== '2023' && <span>/{year}</span>}
             </span>
             <Button className='MonthCard-img-btn' size='mini' shape='rounded' color='primary'>
               <HistogramOutline /> 分析
@@ -59,7 +63,40 @@ const MonthCard = (props) => {
 
         </div>
       </div>
-      <p style={{ textAlign: 'center', color: '#ccc', lineHeight: '30px', fontSize: '14px' }}>本月无交易</p>
+      <div className='MonthCard-item'>
+        <Tag color='#F9F9F9' style={{ color: '#000', padding: ' 0.2rem 0.5rem', margin: '0.5rem 0 0.3rem 0.5rem' }}>3.21</Tag>
+        <div onClick={() => { navigate('/detail')}}>
+
+        <div style={{ width: '82vw', display: 'flex', justifyContent: 'space-between', margin: '0.5rem auto' }}>
+          <Space align='center'>
+            <img src={require('./../img/$.png')} style={{ width: '1.2rem' }} />
+            <span style={{ fontSize: '1rem', fontWeight: '500' }}>结息：3.99扣税：0</span>
+          </Space>
+          <Space style={{ fontSize: '1rem', fontWeight: '500' }}> +￥3.99 </Space>
+        </div>
+
+        <div className='MonthCard-item-balance'>
+          <span > 信用卡 6789 03:35 </span>
+          <span className="MonthCard-item-balance-b">余额 789.09</span>
+        </div>
+        </div>
+
+        <div style={{ width: '82vw', display: 'flex', justifyContent: 'space-between', margin: '0.5rem auto' }}>
+          <Space align='center'>
+            <img src={require('./../img/$.png')} style={{ width: '1.2rem' }} />
+            <span style={{ fontSize: '1rem', fontWeight: '500' }}>结息：3.99扣税：0</span>
+          </Space>
+          <Space style={{ fontSize: '1rem', fontWeight: '500' }}> +￥3.99 </Space>
+
+        </div>
+        <div className='MonthCard-item-balance'>
+          <span > 信用卡 6789 03:35 </span>
+          <span className="MonthCard-item-balance-b">余额 789.09</span>
+        </div>
+      </div>
+      <div></div>
+
+      {/* <p style={{ textAlign: 'center', color: '#ccc', lineHeight: '30px', fontSize: '14px' }}>本月无交易</p> */}
     </div>
   )
 }

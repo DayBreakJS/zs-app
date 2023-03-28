@@ -60,10 +60,6 @@ const ListPage = () => {
   )
 
   const back = () => {
-    Toast.show({
-      content: '点击了返回区域',
-      duration: 1000,
-    })
     navigate('/')
   }
   const [visible, setVisible] = useState(false)

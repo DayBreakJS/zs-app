@@ -6,6 +6,8 @@ import { createHashRouter, RouterProvider } from "react-router-dom";
 import './App.css'
 import Home from './pages/Home';
 import ListPage from './pages/ListPage';
+import DetailPage from './pages/Detail';
+import Login from './pages/Login'
 
 const router = createHashRouter([
   {
@@ -15,6 +17,14 @@ const router = createHashRouter([
   {
     path: "/listPage",
     element: <ListPage />,
+  },
+  {
+    path: "/detail",
+    element: <DetailPage />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
   },
 ]);
 
