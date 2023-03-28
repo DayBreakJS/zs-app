@@ -37,8 +37,8 @@ const Detail = () => {
         </div>
         <div style={{ textAlign: 'center', width: '100%', }}>
           <Space align="center">
-            <span style={{ fontSize: '2.6rem', color: '#000', }}>+￥3.99 </span>
-            <QuestionCircleOutline style={{ fontSize: '1.8rem', color: '#ccc', marginRight: '-1rem' }} />
+            <span style={{ fontSize: '2.5rem', color: '#000', }}>+￥3.99 </span>
+            <QuestionCircleOutline style={{ fontSize: '1.6rem', color: '#ccc', marginRight: '-1rem' }} />
           </Space>
         </div>
         <p style={{ textAlign: 'center', fontSize: '1rem', color:'#808080',marginTop:'-0.01rem'}}>余额¥6.395.09</p>
