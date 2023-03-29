@@ -1,3 +1,55 @@
-.Login{
+.Login {
   text-align: center;
+}
+
+.adm-number-keyboard-header {
+  padding: 5px 12px;
+}
+
+.adm-number-keyboard-header.adm-number-keyboard-header-with-title {
+  justify-content: center;
+  font-size: 1rem;
+  color: #FFF;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.adm-number-keyboard {
+  background: #010e1a !important;
+}
+
+.adm-number-keyboard-header {
+  background: #010e1a !important;
+}
+
+.adm-number-keyboard-key.adm-number-keyboard-key-extra,
+.adm-number-keyboard-key.adm-number-keyboard-key-number {
+  background: #4d4e4f !important;
+  color: #FFF;
+  font-size: 1.6rem;
+  font-weight: 500;
+
+}
+
+.adm-number-keyboard-key-sign {
+  background: #4d4e4f !important;
+  color: #FFF;
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+.adm-number-keyboard-key {
+  border-radius: 5px !important;
+}
+
+.adm-number-keyboard-key.adm-number-keyboard-key-extra,
+.adm-number-keyboard-key.adm-number-keyboard-key-number .adm-number-keyboard-key {
+  border: none;
+}
+.adm-input-element{
+  font-size: 1.2rem;
+}
+
+.adm-number-keyboard-key {
+  border: solid 2px #001529;
 }

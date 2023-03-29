@@ -8,10 +8,12 @@ import Home from './pages/Home';
 import ListPage from './pages/ListPage';
 import DetailPage from './pages/Detail';
 import Login from './pages/Login'
+import Loading from './pages/Loading'
+
 
 const router = createHashRouter([
   {
-    path: "/",
+    path: "/home",
     element: <Home/>,
   },
   {
@@ -26,6 +28,10 @@ const router = createHashRouter([
     path: "/login",
     element: <Login />,
   },
+  {
+    path: "/",
+    element: <Loading />,
+  }
 ]);
 
 const startApp = () => {

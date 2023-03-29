@@ -46,7 +46,6 @@ const Home = () => {
         <div className='background-top' >
           <div className='anchor-point' onClick={() => {
             navigate('/login')
-            window.location.reload()
           }}>
             {/* anchor point */}
           </div>

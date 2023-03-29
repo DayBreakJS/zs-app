@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable no-sparse-arrays */
 import React, { useState } from 'react'
-import { NavBar, Space, Toast, Button, Popup, Tabs, PickerView, PullToRefresh, TabBar, InfiniteScroll } from 'antd-mobile'
+import { NavBar, Space, Button, Popup, Tabs, PickerView, PullToRefresh, TabBar, InfiniteScroll } from 'antd-mobile'
 import { SearchOutline, MoreOutline, AddOutline } from 'antd-mobile-icons'
 import { useNavigate } from "react-router-dom";
 import MonthCard from '../components/MonthCard';
@@ -60,7 +60,7 @@ const ListPage = () => {
   )
 
   const back = () => {
-    navigate('/')
+    navigate('/home')
   }
   const [visible, setVisible] = useState(false)
 

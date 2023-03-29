@@ -20,6 +20,8 @@ const Detail = () => {
 
   const back = () => {
     navigate('/listPage')
+    window.location.reload()
+
   }
 
   return (

@@ -2,12 +2,13 @@
 
 import React from 'react'
 import { Space, Input, NavBar, Avatar, Button ,NumberKeyboard } from 'antd-mobile'
-import _ from 'lodash'
-import { RightOutline, MoreOutline, QuestionCircleOutline } from 'antd-mobile-icons'
 import { useNavigate } from "react-router-dom";
 import './login.css'
+
 const Login = () => {
-const [visible,setVisible]=React.useState(false)
+  const [visible, setVisible] = React.useState(false)
+  const [str, setStr] = React.useState('')
+
   const navigate = useNavigate()
 
   const right = (
@@ -19,7 +20,7 @@ const [visible,setVisible]=React.useState(false)
   )
 
   const back = () => {
-    navigate('/listPage')
+    navigate('/home')
   }
 
   const actions = {
@@ -27,8 +28,11 @@ const [visible,setVisible]=React.useState(false)
       setVisible('')
     },
     onInput: (key) => {
+      setStr((s)=>s+key)
     },
     onDelete: () => {
+      setStr((s) => s.substring(0,s.length-1))
+
     },
   }
 
@@ -40,8 +44,8 @@ const [visible,setVisible]=React.useState(false)
       <span style={{ fontSize: '2rem' }}>176*****053上午好</span>
       <div onClick={() => setVisible(true)}>
 
-      <Input placeholder='请输入登录密码' clearable
-        style={{ width: '89vw',margin:'0 auto', borderBottom: '1px solid #ccc', padding: '1rem 0',marginTop:'1.2rem' }}
+        <Input placeholder='请输入登录密码' clearable value={str} type="password" onClear={() => setStr('')}
+        style={{ width: '89vw',margin:'0 auto', borderBottom: '1px solid #ccc', padding: '0.7rem 0',marginTop:'1.2rem' }}
         />
       </div>
 
@@ -52,18 +56,23 @@ const [visible,setVisible]=React.useState(false)
         block
         shape='rounded'
         color='primary'
-        onClick={()=>navigate('/listPage')}
+        onClick={() => {
+          navigate('/listPage')
+          window.location.reload()
+
+        }}
       >
         登录
       </Button>
       <p style={{ fontSize: '0.9rem', marginTop: '2rem' }}>快速找回密码 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 短信安全登录&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 更多</p>
-      
+      <img style={{width:'1.5rem',marginTop:'1.5rem'}} src={require('./../img/wx.png')} />
       <NumberKeyboard
-        visible={visible }
+        visible={visible}
+        showCloseButton={false}
         onClose={actions.onClose}
         onInput={actions.onInput}
         onDelete={actions.onDelete}
-        title='招商银行安全输入'
+        title={<span>招商银行安全输入<span style={{ color: '#0f4fa9', position: "absolute",right:'0.7rem' }}>完成</span></span>}
         customKey='ABC'
       />
     </div>
