@@ -1,8 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 
 import React from 'react'
-import { Space, Switch, NavBar, Toast } from 'antd-mobile'
-import _ from 'lodash'
+import { Space, Switch, NavBar } from 'antd-mobile'
 import { RightOutline, MoreOutline, QuestionCircleOutline } from 'antd-mobile-icons'
 import { useNavigate } from "react-router-dom";
 import './detail.css'

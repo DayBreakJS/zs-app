@@ -85,9 +85,10 @@
 .filter {
   width: 100vw;
   height: 5vh;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   line-height: 5vh;
   display: flex;
+  font-family: auto;
   justify-content: space-between
 }
 
@@ -99,8 +100,8 @@
   border-style: solid;
   display: inline-block;
   position: absolute;
-  top: 1.1rem;
-  left: 63px;
+  top: 1.25rem;
+  left: 90px;
 }
 
 .filter-top-left {
@@ -113,7 +114,7 @@
 }
 
 .filter-date .uptriangle {
-  left: 3.1rem;
+  left: 3.8rem;
 }
 
 .filter-user {
@@ -122,17 +123,17 @@
 }
 
 .filter-user .uptriangle {
-  left: 3.5rem;
+  left: 3.9rem;
 }
 
 .filter-top-right {
-  width: 3rem;
+  width: 3.8rem;
   position: relative;
 }
 
 .filter-top-right .uptriangle {
   position: absolute;
-  left: 2rem;
+  left: 2.2rem;
 
 }
 

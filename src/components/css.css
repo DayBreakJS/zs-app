@@ -44,7 +44,7 @@
 
 .MonthCard-img-box-month {
   font-size: 4rem;
-  font-family: serif
+  font-family: cursive;
 }
 
 .MonthCard-img-box-unit {
@@ -101,6 +101,8 @@
   left: -2.5rem;
   top: -0.9rem;
   width: 5.1rem;
+  border-radius: 100%;
+  border-top: 1px #ebe7e7 solid ;
   /* margin-top: -1rem; */
 }
 

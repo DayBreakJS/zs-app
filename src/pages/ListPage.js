@@ -99,14 +99,13 @@ const ListPage = () => {
         <div style={{ paddingBottom: '6.5vh'}}>
 
         <PullToRefresh
-          completeDelay={300}
+          completeDelay={100}
           headHeight={30}
-
           renderText={(status) => {
             return <div>{statusRecord[status]}</div>
           }}
           onRefresh={async () => {
-            await sleep(600)
+            await sleep(100)
           }}
         >
           {
@@ -167,7 +166,6 @@ const ListPage = () => {
             </Button>
           </Tabs.Tab>
           <Tabs.Tab title='自定义' key='vegetables'>
-            西红柿
           </Tabs.Tab>
         </Tabs>
       </Popup>

@@ -7,7 +7,7 @@ let start = 0
 let end = 0
 export async function mockRequest() {
   
-  await sleep(2000)
+  await sleep(500)
   count++
   if(count===0) return []
   const list = converData(data).reverse()

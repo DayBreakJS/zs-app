@@ -12,7 +12,7 @@ const Login = () => {
   const navigate = useNavigate()
 
   const right = (
-    <div style={{ fontSize: 24, padding:'0 1rem' }}>
+    <div style={{ fontSize: 24, padding:'0 0.3rem' }}>
       <Space style={{ '--gap': '19px' }}>
         <img style={{ width: '1.5rem' }} src={require('./../img/ej.png')} />
       </Space>
