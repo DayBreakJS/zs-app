@@ -37,7 +37,7 @@
 
 .background-top {
   width: 100vw;
-  height: 51vh;
+  height: 52vh;
   background-repeat: no-repeat;
   background-size: 100% 100%;
   background-image: url(./img/b1.png);
@@ -100,7 +100,7 @@
   border-style: solid;
   display: inline-block;
   position: absolute;
-  top: 1.25rem;
+  top: 1.1rem;
   left: 90px;
 }
 

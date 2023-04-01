@@ -44,7 +44,13 @@ const Login = () => {
       <span style={{ fontSize: '2rem' }}>176*****053上午好</span>
       <div onClick={() => setVisible(true)}>
 
-        <Input placeholder='请输入登录密码' clearable value={str} type="password" onClear={() => setStr('')}
+        <Input placeholder='请输入登录密码'  clearable value={str} type="password"
+          onClear={() => setStr('')}
+          onFocus={() => {
+            // 屏蔽默认键盘弹出
+            document.activeElement.blur();
+            // TODO ...
+          }} 
         style={{ width: '89vw',margin:'0 auto', borderBottom: '1px solid #ccc', padding: '0.7rem 0',marginTop:'1.2rem' }}
         />
       </div>
@@ -72,7 +78,9 @@ const Login = () => {
         onClose={actions.onClose}
         onInput={actions.onInput}
         onDelete={actions.onDelete}
-        title={<span>招商银行安全输入<span style={{ color: '#0f4fa9', position: "absolute",right:'0.7rem' }}>完成</span></span>}
+        title={<span>招商银行安全输入
+          <span onClick={() => { setVisible('') }} style={{ color: '#0f4fa9', position: "absolute", right: '0.7rem' }}>完成</span>
+        </span>}
         customKey='ABC'
       />
     </div>

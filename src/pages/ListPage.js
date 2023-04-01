@@ -10,6 +10,15 @@ import MonthCard from '../components/MonthCard';
 import { mockRequest } from '../mock-request'
 import { sleep } from 'antd-mobile/es/utils/sleep'
 // const dataList = converData(data).reverse()
+
+// const add0 = ()= > {
+//     if(str.length)
+//     if (str[0] === "0") {
+//       return (str = str.slice(1));
+//     } else {
+//       return str;
+//     }
+// }
 const _dataColumns = [
   [
     { label: '2016', value: '2016' },
@@ -22,33 +31,29 @@ const _dataColumns = [
     { label: '2023', value: '2023' },
   ],
   [
-    { label: 1, value: 1 },
-    { label: 2, value: 2 },
-    { label: 3, value: 3 },
+    { label: '1', value: '01' },
+    { label: '2', value: '02' },
+    { label: '3', value: '03' },
   ]
+
 ]
 
 const ListPage = () => {
   const navigate = useNavigate()
-  const [date, setDate] = React.useState('2023')
-  const [month, setMonth] = React.useState('3')
+  const [year, setYear] = React.useState('2023')
+  const [month, setMonth] = React.useState('03')
+  const [visible, setVisible] = useState(false)
 
   const [dataList, setDataList] = useState([])
   const [hasMore, setHasMore] = useState(true)
   const [dataColumns, setDataColumns] = React.useState(_dataColumns)
 
-
   async function loadMore() {
     const append = await mockRequest()
     setDataList(val => [...val, ...append])
-    setHasMore(append.length > 0)
+    setHasMore(append.length > 0 )
   }
 
-  // React.useEffect(() => {
-  //   // loadMore()
-  //   console.log('----')
-  //    mockRequest(0)
-  // },[])
 
   const right = (
     <div style={{ fontSize: 24 }}>
@@ -62,7 +67,6 @@ const ListPage = () => {
   const back = () => {
     navigate('/home')
   }
-  const [visible, setVisible] = useState(false)
 
   const statusRecord = {
     pulling: '下拉刷新',
@@ -70,7 +74,35 @@ const ListPage = () => {
     refreshing: <img style={{ width: '1.2rem' }} src={require('./../img/loding.gif')} />,
   }
 
+  const pvChange = (val, extend) => {
+    setYear(val[0])
+    setMonth(val[1])
 
+    if (val && val[0] != '2023') {
+      _dataColumns[1] = Array.from({ length: 12 }, (v, k) => k + 1).map(i => (
+        { label: `${i}`, value: `${i < 10 ? '0' + i : i}` }
+      ))
+      setDataColumns(_dataColumns)
+    } else {
+      _dataColumns[1] = [
+        { label: '1', value: '01' },
+        { label: '2', value: '02' },
+        { label: '3', value: '03' },
+      ]
+      setDataColumns(_dataColumns)
+    }
+
+    // console.log('onChange', val, extend.items)
+  }
+
+  const onFilter = async () => {
+    const append = await mockRequest(year, month)
+    setDataList(append)
+    setVisible(false)
+    setHasMore(true)
+  }
+
+  // console.log(dataList,'---dataList')
   return (
     <div className='listPage'>
       <div className='listPage-top'>
@@ -80,7 +112,7 @@ const ListPage = () => {
         <div className='filter'>
           <div className="filter-top-left">
             <div className='filter-top filter-date' onClick={() => setVisible(true)} >
-              {date}.{month == '3' ? '03' : month}
+              {year}.{month == '3' ? '03' : month}
               <div className="uptriangle"></div>
             </div>
             <div className=' filter-top filter-user'>
@@ -97,39 +129,27 @@ const ListPage = () => {
 
       <div className='listPage-content' >
         <div style={{ paddingBottom: '6.5vh'}}>
-
         <PullToRefresh
           completeDelay={100}
           headHeight={30}
-          renderText={(status) => {
-            return <div>{statusRecord[status]}</div>
-          }}
-          onRefresh={async () => {
-            await sleep(100)
-          }}
+          renderText={(status) => { return <div>{statusRecord[status]}</div> }}
+          onRefresh={async () => { await sleep(100) }}
         >
-          {
-            dataList.map(item => {
-              return <MonthCard {...item} setDate={setDate} setMonth={setMonth} />
-            })
-          }
+          { dataList.map(item => <MonthCard {...item} setYear={setYear} setMonth={setMonth} /> ) }
             <InfiniteScroll
               loadMore={loadMore}
               hasMore={hasMore}
-              renderText={(status) => {
-              return <div>{statusRecord[status]}</div>
-            }}  />
+              renderText={(status) => { return <div>{statusRecord[status]}</div> }}
+            />
 
         </PullToRefresh>
         </div>
       </div>
-      {/* <Mask visible={visible} onMaskClick={() => setVisible(false)} /> */}
       <Popup
         visible={visible}
         showCloseButton
-        onMaskClick={() => {
-          setVisible(false)
-        }}
+        onClose={() => { setVisible(false) }}
+        onMaskClick={() => { setVisible(false) }}
         bodyStyle={{
           borderTopLeftRadius: '10px',
           borderTopRightRadius: '10px',
@@ -140,28 +160,12 @@ const ListPage = () => {
           <Tabs.Tab title='月份选择' key='fruits'>
             <PickerView
               mouseWheel={true}
+              value={[year, month]}
+              onChange={pvChange}
               columns={dataColumns}
-              value={[date, 3]}
               style={{ '--height': '130px', '--item-height': '2.8rem' }}
-              onChange={(val, extend) => {
-                setDate(val[0])
-
-                if (val && val[0] != '2023') {
-                  _dataColumns[1] = Array.from({ length: 12 }, (v, k) => k + 1).map(i => ({ label: i, value: i }))
-                  setDataColumns(_dataColumns)
-
-                } else {
-                  _dataColumns[1] = [
-                    { label: 1, value: 1 },
-                    { label: 2, value: 2 },
-                    { label: 3, value: 3 },
-                  ]
-                  setDataColumns(_dataColumns)
-                }
-                console.log('onChange', val, extend.items)
-              }}
             />
-            <Button block shape='rounded' color='danger'>
+            <Button block shape='rounded' color='danger' onClick={onFilter}>
               确认
             </Button>
           </Tabs.Tab>
