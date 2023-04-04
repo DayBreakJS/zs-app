@@ -13,9 +13,10 @@
   width: 91vw;
   margin: 0 auto;
   background-color: #fff;
-  height: 37vh;
+  min-height: 36vh;
   border-radius: 8px;
   margin-top: 0.3rem;
+  padding-bottom: 1vh;
 }
 
 .detail-Page-card2 {
@@ -23,7 +24,8 @@
   margin: 0 auto;
   margin-top: 1rem;
   background-color: #fff;
-  height: 28vh;
+  min-height: 28vh;
   border-radius: 8px;
   clear: both;
+  padding-bottom: 1vh;
 }

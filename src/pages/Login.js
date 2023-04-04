@@ -41,7 +41,7 @@ const Login = () => {
       <NavBar className='listPage-NavBar' right={right} onBack={back}>
       </NavBar>
       <Avatar src='' style={{ '--size': '70px', borderRadius: '50%', margin: '0 auto', marginTop: '2.5rem',marginBottom:'1.2rem' }} />
-      <span style={{ fontSize: '2rem' }}>176*****053上午好</span>
+      <span style={{ fontSize: '2rem' }}>159*****835上午好</span>
       <div onClick={() => setVisible(true)}>
 
         <Input placeholder='请输入登录密码'  clearable value={str} type="password"
