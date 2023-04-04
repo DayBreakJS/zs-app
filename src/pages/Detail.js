@@ -57,8 +57,9 @@ const Detail = (props) => {
   )
 
   const back = () => {
-    navigate('/listPage')
-    window.location.reload()
+    navigate(-1)
+    
+    // window.location.reload()
 
   }
 

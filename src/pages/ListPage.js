@@ -4,21 +4,12 @@
 import React, { useState } from 'react'
 import { NavBar, Space, Button, Popup, Tabs, PickerView, PullToRefresh, TabBar, InfiniteScroll } from 'antd-mobile'
 import { SearchOutline, MoreOutline, AddOutline } from 'antd-mobile-icons'
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import MonthCard from '../components/MonthCard';
 // import converData  from '../converData';
 import { mockRequest } from '../mock-request'
 import { sleep } from 'antd-mobile/es/utils/sleep'
-// const dataList = converData(data).reverse()
 
-// const add0 = ()= > {
-//     if(str.length)
-//     if (str[0] === "0") {
-//       return (str = str.slice(1));
-//     } else {
-//       return str;
-//     }
-// }
 const _dataColumns = [
   [
     { label: '2016', value: '2016' },
@@ -39,6 +30,7 @@ const _dataColumns = [
 ]
 
 const ListPage = () => {
+  // const history = useHistory()
   const navigate = useNavigate()
   const [year, setYear] = React.useState('2023')
   const [month, setMonth] = React.useState('03')
@@ -50,7 +42,7 @@ const ListPage = () => {
 
   async function loadMore() {
     const append = await mockRequest()
-    setDataList(val => [...val, ...append])
+    setDataList(append)
     setHasMore(append.length > 0 )
   }
 
@@ -63,6 +55,8 @@ const ListPage = () => {
       </Space>
     </div>
   )
+
+
 
   const back = () => {
     navigate('/home')
@@ -92,7 +86,6 @@ const ListPage = () => {
       setDataColumns(_dataColumns)
     }
 
-    // console.log('onChange', val, extend.items)
   }
 
   const onFilter = async () => {

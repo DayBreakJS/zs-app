@@ -6,6 +6,7 @@ import './css.css'
 import _ from 'lodash'
 import { HistogramOutline } from 'antd-mobile-icons'
 import { useNavigate } from "react-router-dom";
+import AnimatedNumber from 'react-animated-number'
 
 import { formatRMB } from "../utils"
 
@@ -33,7 +34,6 @@ const typeIcon = {
 const MonthCard = (props) => {
   const { year, month, income, expend, list, setYear, setMonth } = props
   const navigate = useNavigate()
-
   const _toFixed = (n) => {
     const num = Number(n);//将字符串转换为Number类型
     const result = num.toFixed(2);//将Number类型转换为保留两位数的字符串数据
@@ -58,7 +58,11 @@ const MonthCard = (props) => {
             dayList[date]?.map(item => {
               const money = item?.amount > 0 ? `+${formatRMB(item?.amount)}` : `-${formatRMB(item?.amount * -1)}`
               return (
-                <div onClick={() => { navigate(`/detail?id=${item.date}`) }}>
+                <div onClick={() => {
+                  // history.push('/some-other-page')
+                  // window.history.push(`/detail?id=${item.date}`)
+                  navigate(`/detail?id=${item.date}`)
+                }}>
                   <div style={{ width: '82vw', display: 'flex', justifyContent: 'space-between', margin: '0.5rem auto' }}>
                     <Space align='center'>
                       <img src={require(`./../img/typeIcon/${typeIcon[item?.icon] || '现金'}.png`)}
@@ -116,12 +120,35 @@ const MonthCard = (props) => {
               {year !== '2023' && <span>/{year}</span>}
             </span>
             <Button className='MonthCard-img-btn' size='mini' shape='rounded' color='primary'>
-              <HistogramOutline /> 分析
+              <img style={{ width:'1rem',height:'1rem' ,filter:'none',position:'relative',top:'3px',left:'-2px'}} src={require('./../img/fx.png')} />分析
             </Button>
           </Space>
           <Space className='MonthCard-img-box-money'>
-            <Space align="center">支出<span style={{ fontWeight: 500, fontSize: '1rem' }}>{formatRMB(expend)}</span></Space>
-            <Space align="center">收入<span style={{ fontWeight: 500, fontSize: '1rem' }}>{formatRMB(income)}</span></Space>
+            <Space align="center">支出&nbsp;<span style={{ fontWeight: 500, fontSize: '1rem' }}>
+              ￥<AnimatedNumber component="text" value={expend}
+                style={{
+                  transition: '0.8s ease-out',
+                  transitionProperty: 'background-color, color, opacity'
+                }}
+                frameStyle={perc => (perc === 100 ? {} : { opacity: 1 })}
+                stepPrecision={0}
+                duration={300}
+                // formatValue={n => formatRMB(expend)}
+
+              />
+              {/* {formatRMB(expend)} */}
+            </span></Space>
+            <Space align="center">收入&nbsp;<span style={{ fontWeight: 500, fontSize: '1rem' }}>
+              ￥<AnimatedNumber component="text" value={income}
+                style={{
+                  transition: '0.8s ease-out',
+                  transitionProperty: 'background-color, color, opacity'
+                }}
+                frameStyle={perc => (perc === 100 ? {} : { opacity: 1 })}
+                stepPrecision={0}
+                duration={500}
+              />
+            </span></Space>
 
           </Space>
 
