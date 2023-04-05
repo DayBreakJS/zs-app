@@ -9,6 +9,17 @@ import { HomeSwiper, MessageSwiper } from '../components/HomeSwiper'
 const Home = () => {
   const navigate = useNavigate()
 
+  React.useEffect(() => {
+    if (window?.StatusBar) {
+      setTimeout(() => {
+
+        window?.StatusBar.backgroundColorByHexString("#7EB2E9");
+      }, 10)
+
+    }
+  }, [])
+
+
   const tabs = [
     {
       key: 'home',

@@ -31,6 +31,14 @@ const Login = () => {
     </div>
   )
 
+  React.useEffect(() => {
+    if (window?.StatusBar) {
+      setTimeout(() => {
+        window?.StatusBar.backgroundColorByHexString("#FFF");
+      }, 10)
+    }
+  },[])
+
   const back = () => {
     navigate('/home')
   }

@@ -43,6 +43,16 @@ const ListPage = () => {
   const [hasMore, setHasMore] = useState(true)
   const [dataColumns, setDataColumns] = React.useState(_dataColumns)
 
+  React.useEffect(() => {
+    if (window?.StatusBar) {
+      setTimeout(() => {
+        window?.StatusBar.backgroundColorByHexString("#F7F7F7");
+
+      },10)
+    }
+  }, [])
+
+
   async function loadMore() {
     // window.scrollTo(0, 10)
     const filterDate = localStorage.getItem('filterDate');
@@ -150,7 +160,7 @@ const ListPage = () => {
             completeDelay={100}
             headHeight={30}
             renderText={(status) => { return <div>{statusRecord[status]}</div> }}
-            onRefresh={async () => { await sleep(100) }}
+            onRefresh={async () => { await sleep(10) }}
           >
             {dataList.map(item => <MonthCard {...item} setYear={setYear} setMonth={setMonth} />)}
             <InfiniteScroll

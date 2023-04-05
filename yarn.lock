@@ -3345,6 +3345,11 @@ cordova-common@^4.0.2:
     strip-bom "^4.0.0"
     underscore "^1.9.2"
 
+cordova-plugin-statusbar@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/cordova-plugin-statusbar/-/cordova-plugin-statusbar-3.0.0.tgz#371b54cef2594550118ef51c1d677c8adb3bc668"
+  integrity sha512-nzkeWeyLA6+1FryzO0aeB6NS8MZ45gnBYeq2VZqfdNbddZEgtpI4XPYdBVxvm9NhcVoJ3tdA1OBnQD9JryoV0Q==
+
 core-js-compat@^3.25.1:
   version "3.29.1"
   resolved "https://registry.yarnpkg.com/core-js-compat/-/core-js-compat-3.29.1.tgz#15c0fb812ea27c973c18d425099afa50b934b41b"

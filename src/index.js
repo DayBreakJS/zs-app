@@ -35,6 +35,11 @@ const router = createHashRouter([
 ]);
 
 const startApp = () => {
+  if (window?.StatusBar) {
+    window?.StatusBar.hide()
+    // window?.StatusBar.backgroundColorByHexString("#83B5ED");
+  }
+ 
   const root = ReactDOM.createRoot(document.getElementById('root'));
   root.render(
     <React.StrictMode>
@@ -47,6 +52,12 @@ if(window.cordova) {
   document.addEventListener('deviceready', startApp, false);
 } else {
   startApp();
+}
+
+
+var userAgent = navigator.userAgent;
+if (!(userAgent.indexOf("Android") > -1 || userAgent.indexOf("Linux") > -1)) {
+  document.body.style.marginTop = "20px";
 }
 
 

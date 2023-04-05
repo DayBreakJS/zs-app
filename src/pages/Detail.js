@@ -62,6 +62,17 @@ const Detail = (props) => {
 
   }
 
+  React.useEffect(() => {
+    if (window?.StatusBar) {
+      setTimeout(() => {
+        window?.StatusBar.backgroundColorByHexString("#F8F8F8");
+      }, 10)
+
+    }
+  }, [])
+
+
+
   const money = curItem?.amount > 0 ? `+ ${formatRMB(curItem?.amount)}` : `- ${formatRMB(curItem?.amount * -1)}`
   const date = moment(curItem?.date).format("YYYY-MM-DD HH:mm:ss")
   return (

@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="io.cordova.hellocordova" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>HelloCordova</name>
+    <name>招商银行</name>
     <description>Sample Apache Cordova App</description>
     <author email="dev@cordova.apache.org" href="https://cordova.apache.org">
         Apache Cordova Team
@@ -8,5 +8,41 @@
     <content src="index.html" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
-    <preference name="loglevel" value="DEBUG" />
+    <platform name="android">
+        <allow-intent href="market:*" />
+        <icon density="ldpi" src="res/icon/android/drawable-ldpi.png" />
+        <icon density="mdpi" src="res/icon/android/drawable-mdpi.png" />
+        <icon density="hdpi" src="res/icon/android/drawable-hdpi.png" />
+        <icon density="xhdpi" src="res/icon/android/drawable-xhdpi.png" />
+        <icon density="xxhdpi" src="res/icon/android/drawable-xxhdpi.png" />
+        <icon density="xxxhdpi" src="res/icon/android/drawable-xxxhdpi.png" />
+        <splash density="land-hdpi" src="res/screen/android/splash-land-hdpi.png" />
+        <splash density="land-ldpi" src="res/screen/android/splash-land-ldpi.png" />
+        <splash density="land-mdpi" src="res/screen/android/splash-land-mdpi.png" />
+        <splash density="land-xhdpi" src="res/screen/android/splash-land-xhdpi.png" />
+        <splash density="port-hdpi" src="res/screen/android/splash-port-hdpi.png" />
+        <splash density="port-ldpi" src="res/screen/android/splash-port-ldpi.png" />
+        <splash density="port-mdpi" src="res/screen/android/splash-port-mdpi.png" />
+        <splash density="port-xhdpi" src="res/screen/android/splash-port-xhdpi.png" />
+    </platform>
+    <preference name="AutoHideSplashScreen" value="true" />
+    <!-- <preference name="SplashScreenDelay" value="3000" /> -->
+    <preference name="SplashScreenDelay" value="0"/>
+    <preference name="FadeSplashScreen" value="false"/>
+ 
+
+
+
+    <preference name="StatusBarOverlaysWebView" value="true" />
+    <preference name="StatusBarStyle" value="lightContent" />
+    <preference name="Fullscreen" value="false" />
+    <preference name="StatusBarBackgroundColor" value="#1890ff" />
+    <feature name="StatusBar">
+        <param name="android-package" value="org.apache.cordova.statusbar.StatusBar" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="SplashScreen">
+        <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
+        <param name="onload" value="true" />
+    </feature>
 </widget>
