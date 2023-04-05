@@ -64,6 +64,8 @@ const Login = () => {
         color='primary'
         onClick={() => {
           navigate('/listPage')
+          localStorage.setItem('filterDate', null)
+
           window.location.reload()
 
         }}

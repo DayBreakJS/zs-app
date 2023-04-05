@@ -33,7 +33,7 @@ const ListPage = () => {
   // const history = useHistory()
   const navigate = useNavigate()
   const [year, setYear] = React.useState('2023')
-  const [month, setMonth] = React.useState('03')
+  const [month, setMonth] = React.useState('04')
   const [visible, setVisible] = useState(false)
 
   const [dataList, setDataList] = useState([])
@@ -41,9 +41,20 @@ const ListPage = () => {
   const [dataColumns, setDataColumns] = React.useState(_dataColumns)
 
   async function loadMore() {
-    const append = await mockRequest()
-    setDataList(append)
-    setHasMore(append.length > 0 )
+    // window.scrollTo(0, 10)
+    const filterDate = localStorage.getItem('filterDate');
+
+    if (filterDate&& filterDate !== "null") {
+      const datess = filterDate.split(',')
+      setYear(datess[0])
+      setMonth(datess[1])
+      const append = await mockRequest(year, month)
+      setDataList(append)
+    } else {
+      const append = await mockRequest()
+      setDataList(append)
+      setHasMore(append.length > 0)
+    }
   }
 
 
@@ -60,6 +71,8 @@ const ListPage = () => {
 
   const back = () => {
     navigate('/home')
+    localStorage.setItem('filterDate', null)
+
   }
 
   const statusRecord = {
@@ -88,11 +101,34 @@ const ListPage = () => {
 
   }
 
+  const fun = async () => {
+    const filterDate = localStorage.getItem('filterDate');
+    if (filterDate !== null) {
+      const datess = filterDate.split(',')
+      setYear(datess[0])
+      setMonth(datess[1])
+      console.log(datess,'----111')
+      const append = await mockRequest(year, month)
+      setDataList(append)
+
+
+    }
+  }
+
+  React.useEffect(() => {
+    // fun()
+  },[])
+
   const onFilter = async () => {
+    await  window.scrollTo(0, 10)
+
     const append = await mockRequest(year, month)
+
     setDataList(append)
     setVisible(false)
     setHasMore(true)
+
+    localStorage.setItem('filterDate', [year, month])
   }
 
   // console.log(dataList,'---dataList')

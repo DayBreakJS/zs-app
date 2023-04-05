@@ -11,7 +11,7 @@ import AnimatedNumber from 'react-animated-number'
 import { formatRMB } from "../utils"
 
 const typeIcon = {
-  "退款":"退款",
+  "退款": "退款",
   "出行": "出行",
   "酒店": "酒店",
   "生活日用": "生活日用",
@@ -51,11 +51,14 @@ const MonthCard = (props) => {
       const dm = _date[1] + '.' + _date[2]
       return (
         <>
-          <Tag color='#F9F9F9' style={{ color: '#000', padding: ' 0.2rem 0.5rem', margin: '0.5rem 0 0.3rem 0.5rem' }}>
+          <Tag color='#F9F9F9'
+            style={{ color: '#000', padding: ' 0.2rem 0.5rem', margin: '0.5rem 0 0.3rem 0.5rem' }}>
             {dm}
           </Tag>
           {
             dayList[date]?.map(item => {
+              // console.log(item)
+              // const ymds = item?.ymd.split('/')
               const money = item?.amount > 0 ? `+${formatRMB(item?.amount)}` : `-${formatRMB(item?.amount * -1)}`
               return (
                 <div onClick={() => {
@@ -63,12 +66,14 @@ const MonthCard = (props) => {
                   // window.history.push(`/detail?id=${item.date}`)
                   navigate(`/detail?id=${item.date}`)
                 }}>
-                  <div style={{ width: '82vw', display: 'flex', justifyContent: 'space-between', margin: '0.5rem auto' }}>
+                  <div
+                    // id={`MonthCard-img-div${ymds[0]}-${ymds[1]}`}
+                    style={{ width: '82vw', display: 'flex', justifyContent: 'space-between', margin: '0.5rem auto' }}>
                     <Space align='center'>
                       <img src={require(`./../img/typeIcon/${typeIcon[item?.icon] || '现金'}.png`)}
-                        style={{ width: '1.8rem', position: "relative", top: '2px',left:'-5px' }}
+                        style={{ width: '1.8rem', position: "relative", top: '2px', left: '-5px' }}
                       />
-                      <span style={{ fontSize: '1rem', fontWeight: '500',marginLeft:'-10px' }}>{item?.abstract}</span>
+                      <span style={{ fontSize: '1rem', fontWeight: '500', marginLeft: '-10px' }}>{item?.abstract}</span>
                     </Space>
                     <Space style={{ fontSize: '1rem', fontWeight: '500' }}>{money} </Space>
                   </div>
@@ -88,18 +93,22 @@ const MonthCard = (props) => {
 
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const handleScroll = React.useCallback(_.debounce((e) => {
+  const handleScroll = (e) => {
     const curDom = document.getElementById(`MonthCard-img-text${year}-${month}`)?.getBoundingClientRect()
-    if (curDom?.top <= 111 && curDom?.top >= -149) {
-      setYear(year)
-      setMonth(month)
-    }
+    // const curDom9 = document.getElementById(`MonthCard-img-text${'2019'}-${'09'}`)?.getBoundingClientRect()
 
-    if (curDom?.top >= -70 && curDom?.top <= 90) {
+    if (curDom?.top <= 111 && curDom?.top >= 0) {
       setYear(year)
       setMonth(month)
     }
-  }, 10), []);
+    if (curDom?.top <= 0 && curDom.bottom <= window.innerHeight) {
+      // console.log(`MonthCard-img-text${year}-${month}`)
+      setYear(year)
+      setMonth(month)
+    }
+   
+
+  };
 
   React.useEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -109,45 +118,51 @@ const MonthCard = (props) => {
   }, [handleScroll]);
 
   return (
-    <div className='MonthCard'>
+    <div className='MonthCard'  >
       <div className='MonthCard-img'>
         <img src={require('./../img/m1.jpg')} />
         <div className='MonthCard-img-box'>
           <Space>
-            <span id={`MonthCard-img-text${year}-${month}`} className='MonthCard-img-text'>
+            <span className='MonthCard-img-text' id={`MonthCard-img-text${year}-${month}`}>
               <span className='MonthCard-img-box-month'>{month.replace(/\b(0+)/gi, "")}</span>
               <span className='MonthCard-img-box-unit'>月</span>
               {year !== '2023' && <span>/{year}</span>}
             </span>
             <Button className='MonthCard-img-btn' size='mini' shape='rounded' color='primary'>
-              <img style={{ width:'1rem',height:'1rem' ,filter:'none',position:'relative',top:'3px',left:'-2px'}} src={require('./../img/fx.png')} />分析
+              <img style={{ width: '1rem', height: '1rem', filter: 'none', position: 'relative', top: '3px', left: '-2px' }} src={require('./../img/fx.png')} />分析
             </Button>
           </Space>
           <Space className='MonthCard-img-box-money'>
             <Space align="center">支出&nbsp;<span style={{ fontWeight: 500, fontSize: '1rem' }}>
-              ￥<AnimatedNumber component="text" value={expend}
+              ￥
+              {console.log(expend, '--====expend')}
+              {_.isNumber(expend) && (<AnimatedNumber component="text" value={_.isNumber(expend) ? expend : 0}
                 style={{
                   transition: '0.8s ease-out',
                   transitionProperty: 'background-color, color, opacity'
                 }}
                 frameStyle={perc => (perc === 100 ? {} : { opacity: 1 })}
                 stepPrecision={0}
-                duration={300}
-                // formatValue={n => formatRMB(expend)}
+                duration={1000}
+              // formatValue={(value) => value.toFixed(0)}
+              // formatValue={n => _.isNumber(expend) ? expend :0}
 
-              />
+              />)}
               {/* {formatRMB(expend)} */}
-            </span></Space>
+            </span>
+            </Space>
             <Space align="center">收入&nbsp;<span style={{ fontWeight: 500, fontSize: '1rem' }}>
-              ￥<AnimatedNumber component="text" value={income}
+              ￥
+              {_.isNumber(income) && (<AnimatedNumber component="text" value={_.isNumber(income) ? income : 0}
                 style={{
                   transition: '0.8s ease-out',
                   transitionProperty: 'background-color, color, opacity'
                 }}
                 frameStyle={perc => (perc === 100 ? {} : { opacity: 1 })}
                 stepPrecision={0}
-                duration={500}
-              />
+                duration={1000}
+
+              />)}
             </span></Space>
 
           </Space>
@@ -156,35 +171,6 @@ const MonthCard = (props) => {
       </div>
       <div className='MonthCard-item'>
         <CardDayItem />
-        {/* <Tag color='#F9F9F9' style={{ color: '#000', padding: ' 0.2rem 0.5rem', margin: '0.5rem 0 0.3rem 0.5rem' }}>3.21</Tag>
-        <div onClick={() => { navigate('/detail') }}>
-
-          <div style={{ width: '82vw', display: 'flex', justifyContent: 'space-between', margin: '0.5rem auto' }}>
-            <Space align='center'>
-              <img src={require('./../img/$.png')} style={{ width: '1.2rem' }} />
-              <span style={{ fontSize: '1rem', fontWeight: '500' }}>结息：3.99扣税：0</span>
-            </Space>
-            <Space style={{ fontSize: '1rem', fontWeight: '500' }}> +￥3.99 </Space>
-          </div>
-
-          <div className='MonthCard-item-balance'>
-            <span > 信用卡 6789 03:35 </span>
-            <span className="MonthCard-item-balance-b">余额 789.09</span>
-          </div>
-        </div>
-
-        <div style={{ width: '82vw', display: 'flex', justifyContent: 'space-between', margin: '0.5rem auto' }}>
-          <Space align='center'>
-            <img src={require('./../img/$.png')} style={{ width: '1.2rem' }} />
-            <span style={{ fontSize: '1rem', fontWeight: '500' }}>结息：3.99扣税：0</span>
-          </Space>
-          <Space style={{ fontSize: '1rem', fontWeight: '500' }}> +￥3.99 </Space>
-
-        </div>
-        <div className='MonthCard-item-balance'>
-          <span > 信用卡 6789 03:35 </span>
-          <span className="MonthCard-item-balance-b">余额 789.09</span>
-        </div> */}
       </div>
       <div>
 
