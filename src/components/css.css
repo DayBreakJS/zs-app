@@ -3,6 +3,7 @@
   width: 90vw;
   /* border: 1px solid #ccc; */
   margin: 20px auto;
+  margin-bottom: 5vh ;
   border-radius: 5px;
   /* box-shadow: 3px 3px 10px #888888; */
   box-shadow: 0 2px 4px 0 rgba(210, 207, 207, 0.2), 0 2px 5px 0 rgba(206, 204, 204, 0.19);
@@ -44,6 +45,7 @@
 
 .MonthCard-img-box-month {
   font-size: 4rem;
+  font-family: serif
 }
 
 .MonthCard-img-box-unit {
