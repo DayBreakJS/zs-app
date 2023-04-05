@@ -2,14 +2,14 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable no-sparse-arrays */
 import React, { useState } from 'react'
-import { NavBar, Space, Button, Popup, Tabs, PickerView, PullToRefresh, TabBar, InfiniteScroll } from 'antd-mobile'
-import { SearchOutline, MoreOutline, AddOutline } from 'antd-mobile-icons'
+import { NavBar, Space, Button, Popup, Tabs, PickerView, PullToRefresh, TabBar, InfiniteScroll, Radio } from 'antd-mobile'
+import { SearchOutline, MoreOutline, AddOutline, DownFill } from 'antd-mobile-icons'
 import { useNavigate, useLocation } from "react-router-dom";
 import MonthCard from '../components/MonthCard';
 // import converData  from '../converData';
 import { mockRequest } from '../mock-request'
 import { sleep } from 'antd-mobile/es/utils/sleep'
-
+import CardList from '../components/CardList'
 const _dataColumns = [
   [
     { label: '2016', value: '2016' },
@@ -35,6 +35,9 @@ const ListPage = () => {
   const [year, setYear] = React.useState('2023')
   const [month, setMonth] = React.useState('04')
   const [visible, setVisible] = useState(false)
+  const [cardVisible, setCardVisible] = useState(false)
+  const [cardName, setCardName] = useState('全部账户')
+
 
   const [dataList, setDataList] = useState([])
   const [hasMore, setHasMore] = useState(true)
@@ -44,7 +47,7 @@ const ListPage = () => {
     // window.scrollTo(0, 10)
     const filterDate = localStorage.getItem('filterDate');
 
-    if (filterDate&& filterDate !== "null") {
+    if (filterDate && filterDate !== "null") {
       const datess = filterDate.split(',')
       setYear(datess[0])
       setMonth(datess[1])
@@ -72,6 +75,7 @@ const ListPage = () => {
   const back = () => {
     navigate('/home')
     localStorage.setItem('filterDate', null)
+    window.scrollTo(0, 10)
 
   }
 
@@ -101,26 +105,8 @@ const ListPage = () => {
 
   }
 
-  const fun = async () => {
-    const filterDate = localStorage.getItem('filterDate');
-    if (filterDate !== null) {
-      const datess = filterDate.split(',')
-      setYear(datess[0])
-      setMonth(datess[1])
-      console.log(datess,'----111')
-      const append = await mockRequest(year, month)
-      setDataList(append)
-
-
-    }
-  }
-
-  React.useEffect(() => {
-    // fun()
-  },[])
-
   const onFilter = async () => {
-    await  window.scrollTo(0, 10)
+    await window.scrollTo(0, 10)
 
     const append = await mockRequest(year, month)
 
@@ -141,39 +127,42 @@ const ListPage = () => {
         <div className='filter'>
           <div className="filter-top-left">
             <div className='filter-top filter-date' onClick={() => setVisible(true)} >
-              {year}.{month == '3' ? '03' : month}
-              <div className="uptriangle"></div>
+              {year}.{month == '3' ? '03' : month}&nbsp;
+              <DownFill />
             </div>
-            <div className=' filter-top filter-user'>
-              全部账户
-              <div className="uptriangle"></div>
+            <div className='filter-top filter-user' onClick={() => { setCardVisible(true) }}>
+              {cardName}&nbsp;
+              <DownFill style={{width:'0.1ream'}}/>
+
             </div>
           </div>
           <div className='filter-top-right'>
-            筛选
-            <div className="uptriangle"></div>
+            筛选&nbsp;
+            <DownFill />
+
           </div>
         </div>
       </div>
 
       <div className='listPage-content' >
-        <div style={{ paddingBottom: '6.5vh'}}>
-        <PullToRefresh
-          completeDelay={100}
-          headHeight={30}
-          renderText={(status) => { return <div>{statusRecord[status]}</div> }}
-          onRefresh={async () => { await sleep(100) }}
-        >
-          { dataList.map(item => <MonthCard {...item} setYear={setYear} setMonth={setMonth} /> ) }
+        <div style={{ paddingBottom: '6.5vh' }}>
+          <PullToRefresh
+            completeDelay={100}
+            headHeight={30}
+            renderText={(status) => { return <div>{statusRecord[status]}</div> }}
+            onRefresh={async () => { await sleep(100) }}
+          >
+            {dataList.map(item => <MonthCard {...item} setYear={setYear} setMonth={setMonth} />)}
             <InfiniteScroll
               loadMore={loadMore}
               hasMore={hasMore}
               renderText={(status) => { return <div>{statusRecord[status]}</div> }}
             />
 
-        </PullToRefresh>
+          </PullToRefresh>
         </div>
       </div>
+      <CardList cardName={cardName} setCardName={setCardName} cardVisible={cardVisible} setCardVisible={setCardVisible}/>
       <Popup
         visible={visible}
         showCloseButton
@@ -182,7 +171,7 @@ const ListPage = () => {
         bodyStyle={{
           borderTopLeftRadius: '10px',
           borderTopRightRadius: '10px',
-          height: '32vh'
+          height: '35vh'
         }}
       >
         <Tabs stretch={false}>
@@ -194,7 +183,7 @@ const ListPage = () => {
               columns={dataColumns}
               style={{ '--height': '130px', '--item-height': '2.8rem' }}
             />
-            <Button block shape='rounded' color='danger' onClick={onFilter}>
+            <Button block shape='rounded' color='danger' style={{ marginTop: '5vh' }} onClick={onFilter}>
               确认
             </Button>
           </Tabs.Tab>

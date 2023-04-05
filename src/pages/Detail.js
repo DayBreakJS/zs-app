@@ -45,7 +45,6 @@ const Detail = (props) => {
   const searchParams = new URLSearchParams(location.search);
   const id = searchParams.get('id')
   const curItem = _.find(data, { 'date': id, })
-  console.log(curItem, id)
 
   const right = (
     <div style={{ fontSize: 24, background: '#F8F8F8' }}>
@@ -58,8 +57,8 @@ const Detail = (props) => {
 
   const back = () => {
     navigate(-1)
-    
     // window.location.reload()
+    window.scrollTo(0,10)
 
   }
 

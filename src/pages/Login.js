@@ -1,9 +1,21 @@
 /* eslint-disable jsx-a11y/alt-text */
 
 import React from 'react'
+import moment from 'moment'
 import { Space, Input, NavBar, Avatar, Button ,NumberKeyboard } from 'antd-mobile'
 import { useNavigate } from "react-router-dom";
 import './login.css'
+
+
+const now = moment();
+let dateText='上午好'
+if (now.hour() >= 6 && now.hour() < 12) {
+  dateText = '上午好'
+} else if (now.hour() >= 12 && now.hour() < 18) {
+  dateText = '下午好'
+} else {
+  dateText = '晚上好'
+}
 
 const Login = () => {
   const [visible, setVisible] = React.useState(false)
@@ -41,7 +53,7 @@ const Login = () => {
       <NavBar className='listPage-NavBar' right={right} onBack={back}>
       </NavBar>
       <Avatar src='' style={{ '--size': '70px', borderRadius: '50%', margin: '0 auto', marginTop: '2.5rem',marginBottom:'1.2rem' }} />
-      <span style={{ fontSize: '2rem' }}>159*****835上午好</span>
+      <span style={{ fontSize: '1.8rem' }}>159*****835{dateText}</span>
       <div onClick={() => setVisible(true)}>
 
         <Input placeholder='请输入登录密码'  clearable value={str} type="password"
@@ -66,7 +78,7 @@ const Login = () => {
           navigate('/listPage')
           localStorage.setItem('filterDate', null)
 
-          window.location.reload()
+          // window.location.reload()
 
         }}
       >

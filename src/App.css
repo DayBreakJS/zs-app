@@ -28,6 +28,7 @@
 .TabBar .adm-tab-bar-item-title {
   color: #000;
 }
+
 /* 首页高度 */
 .app-content {
   /* height: 356vh; */
@@ -110,16 +111,21 @@
 
 .filter-top {
   position: relative;
-  margin: 0 5px 0 15px;
+  margin: 0 2px 0 15px;
+  font-weight: 400;
+  font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
 }
 
 .filter-date .uptriangle {
   left: 3.8rem;
 }
+.filter-top svg,.filter-top-right svg{
+  width: 0.8rem !important;
+}
 
 .filter-user {
   position: relative;
-  left: 0.3rem;
+  left: -5px;
 }
 
 .filter-user .uptriangle {
@@ -193,4 +199,9 @@
   background-color: #F7F8F8;
   text-align: center;
   color: #a7a5a5;
+}
+
+.adm-radio.adm-radio-checked .adm-radio-icon {
+  border-color: #5f96ec !important;
+  background-color: #5f96ec !important;
 }
