@@ -39,6 +39,12 @@ const startApp = () => {
     window?.StatusBar.hide()
     // window?.StatusBar.backgroundColorByHexString("#83B5ED");
   }
+  if (navigator.splashscreen) {
+    navigator.splashscreen.hide()
+
+    // window?.StatusBar.backgroundColorByHexString("#83B5ED");
+  }
+
  
   const root = ReactDOM.createRoot(document.getElementById('root'));
   root.render(
