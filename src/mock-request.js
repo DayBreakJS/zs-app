@@ -20,8 +20,8 @@ export async function mockRequest(year, month) {
   
   list.forEach(item => {
     if (item?.month && item?.year) {
-      item.income = huizong[item.year + item.month.replace(/\b(0+)/gi, "")].income;
-      item.expend = huizong[item.year + item.month.replace(/\b(0+)/gi, "")].expend
+      item.income = huizong[item.year + item.month.replace(/\b(0+)/gi, "")]?.income || 0;
+      item.expend = huizong[item.year + item.month.replace(/\b(0+)/gi, "")]?.expend || 0
     }
   })
 

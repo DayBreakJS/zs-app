@@ -60,8 +60,8 @@ const Login = () => {
     <div className='Login'>
       <NavBar className='listPage-NavBar' right={right} onBack={back}>
       </NavBar>
-      <Avatar src='' style={{ '--size': '70px', borderRadius: '50%', margin: '0 auto', marginTop: '2.5rem',marginBottom:'1.2rem' }} />
-      <span style={{ fontSize: '1.8rem' }}>159*****835{dateText}</span>
+      <Avatar src='' style={{ '--size': '80px', borderRadius: '50%', margin: '0 auto', marginTop: '2.5rem',marginBottom:'1.4rem' }} />
+      <span style={{ fontSize: '1.7rem' }}>159*****835，{dateText}</span>
       <div onClick={() => setVisible(true)}>
 
         <Input placeholder='请输入登录密码'  clearable value={str} type="password"
@@ -71,17 +71,18 @@ const Login = () => {
             document.activeElement.blur();
             // TODO ...
           }} 
-        style={{ width: '89vw',margin:'0 auto', borderBottom: '1px solid #ccc', padding: '0.7rem 0',marginTop:'1.2rem' }}
+        style={{ width: '89vw',margin:'0 auto', borderBottom: '1px solid #ccc', padding: '0.1rem 0',marginTop:'1.2rem' }}
         />
       </div>
 
       <Button style={{
         width: '35vw', margin: '0 auto', marginTop: '5rem',
-        '--background-color': '#E74A59', '--border-color':'#E74A59'
+        '--background-color': '#E74A59', '--border-color': '#E74A59',
       }}
         block
         shape='rounded'
         color='primary'
+        disabled={str.length<=0}
         onClick={() => {
           navigate('/listPage')
           localStorage.setItem('filterDate', null)
@@ -100,8 +101,8 @@ const Login = () => {
         onClose={actions.onClose}
         onInput={actions.onInput}
         onDelete={actions.onDelete}
-        title={<span>招商银行安全输入
-          <span onClick={() => { setVisible('') }} style={{ color: '#0f4fa9', position: "absolute", right: '0.7rem' }}>完成</span>
+        title={<span style={{ color:'#9A9A9A',fontSize:'1.1rem'}}>招商银行安全输入
+          <span onClick={() => { setVisible('') }} style={{ color: '#4C94F6', position: "absolute", right: '2rem' }}>完成</span>
         </span>}
         customKey='ABC'
       />

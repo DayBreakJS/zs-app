@@ -15,7 +15,7 @@ export default (data) => {
         abstract: item['显示摘要'],
         title: item['点进后图标台头'],
         channel: item['交易渠道'],
-        
+        card: item['卡-卡号'],
         dealType: item['银行交易类型'],
       })
     } else if (item['收入'] !== undefined && item['支出'] !== undefined) {

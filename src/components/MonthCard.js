@@ -7,7 +7,7 @@ import _ from 'lodash'
 import { HistogramOutline } from 'antd-mobile-icons'
 import { useNavigate } from "react-router-dom";
 import AnimatedNumber from 'react-animated-number'
-
+import moment from 'moment'
 import { formatRMB } from "../utils"
 
 const typeIcon = {
@@ -57,7 +57,7 @@ const MonthCard = (props) => {
           </Tag>
           {
             dayList[date]?.map(item => {
-              // console.log(item)
+              // console.log(item.card)
               // const ymds = item?.ymd.split('/')
               const money = item?.amount > 0 ? `+${formatRMB(item?.amount)}` : `-${formatRMB(item?.amount * -1)}`
               return (
@@ -79,8 +79,11 @@ const MonthCard = (props) => {
                   </div>
 
                   <div className='MonthCard-item-balance'>
-                    <span > 储蓄卡 0877 {item?.time} </span>
-                    <span className="MonthCard-item-balance-b">余额 {formatRMB(item?.balance)}</span>
+                    <span > {item?.card ? item?.card : '储蓄卡0877'} {moment(item?.time, 'HH:mm:ss').format('HH:mm')} </span>
+                    {
+                      item?.balance && <span className="MonthCard-item-balance-b">余额 {formatRMB(item?.balance)}</span>
+                    }
+                    
                   </div>
                 </div>
               )
@@ -134,8 +137,8 @@ const MonthCard = (props) => {
           </Space>
           <Space className='MonthCard-img-box-money'>
             <Space align="center">支出&nbsp;<span style={{ fontWeight: 500, fontSize: '1rem' }}>
-              ￥
-              {console.log(expend, '--====expend')}
+              {formatRMB(expend)}
+              {/* ￥
               {_.isNumber(expend) && (<AnimatedNumber component="text" value={_.isNumber(expend) ? expend : 0}
                 style={{
                   transition: '0.8s ease-out',
@@ -147,12 +150,13 @@ const MonthCard = (props) => {
               // formatValue={(value) => value.toFixed(0)}
               // formatValue={n => _.isNumber(expend) ? expend :0}
 
-              />)}
+              />)} */}
               {/* {formatRMB(expend)} */}
             </span>
             </Space>
             <Space align="center">收入&nbsp;<span style={{ fontWeight: 500, fontSize: '1rem' }}>
-              ￥
+              {formatRMB(income)}
+              {/* ￥
               {_.isNumber(income) && (<AnimatedNumber component="text" value={_.isNumber(income) ? income : 0}
                 style={{
                   transition: '0.8s ease-out',
@@ -162,7 +166,7 @@ const MonthCard = (props) => {
                 stepPrecision={0}
                 duration={1000}
 
-              />)}
+              />)} */}
             </span></Space>
 
           </Space>

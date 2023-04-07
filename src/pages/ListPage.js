@@ -25,6 +25,8 @@ const _dataColumns = [
     { label: '1', value: '01' },
     { label: '2', value: '02' },
     { label: '3', value: '03' },
+    { label: '4', value: '04' },
+
   ]
 
 ]
@@ -59,6 +61,7 @@ const ListPage = () => {
 
     if (filterDate && filterDate !== "null") {
       const datess = filterDate.split(',')
+      console.log(datess)
       setYear(datess[0])
       setMonth(datess[1])
       const append = await mockRequest(year, month)
@@ -109,6 +112,8 @@ const ListPage = () => {
         { label: '1', value: '01' },
         { label: '2', value: '02' },
         { label: '3', value: '03' },
+        { label: '4', value: '04' },
+
       ]
       setDataColumns(_dataColumns)
     }
@@ -143,13 +148,11 @@ const ListPage = () => {
             <div className='filter-top filter-user' onClick={() => { setCardVisible(true) }}>
               {cardName}&nbsp;
               <DownFill style={{width:'0.1ream'}}/>
-
             </div>
           </div>
           <div className='filter-top-right'>
             筛选&nbsp;
             <DownFill />
-
           </div>
         </div>
       </div>

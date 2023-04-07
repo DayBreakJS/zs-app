@@ -216,3 +216,8 @@ body {
   border-color: #5f96ec !important;
   background-color: #5f96ec !important;
 }
+
+.am-number-keyboard-wrapper .am-number-keyboard {
+  height: 600px;
+  /* 设置高度为 300px */
+}

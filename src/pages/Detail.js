@@ -94,7 +94,9 @@ const Detail = (props) => {
             <QuestionCircleOutline style={{ fontSize: '1.4rem', color: '#ccc', marginRight: '-1rem' }} />
           </Space>
         </div>
-        <p style={{ textAlign: 'center', fontSize: '1rem', color: '#808080', marginTop: '-0.01rem' }}>余额 {formatRMB(curItem?.balance)}</p>
+        <p style={{ textAlign: 'center', fontSize: '1rem', color: '#808080', marginTop: '-0.01rem' }}>
+          {curItem?.balance ? '余额' +formatRMB(curItem?.balance):''}
+        </p>
         <div style={{ width: '84.5vw', margin: '1.5rem auto', marginTop: '2rem' }}>
           <span style={{ fontSize: "1rem", color: '#808080' }}>交易卡号</span>
           <span style={{ fontSize: "1rem", float: 'right' }}>一卡通 4682********0877</span>
