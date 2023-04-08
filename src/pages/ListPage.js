@@ -10,6 +10,7 @@ import MonthCard from '../components/MonthCard';
 import { mockRequest } from '../mock-request'
 import { sleep } from 'antd-mobile/es/utils/sleep'
 import CardList from '../components/CardList'
+
 const _dataColumns = [
   [
     { label: '2016', value: '2016' },
@@ -34,8 +35,12 @@ const _dataColumns = [
 const ListPage = () => {
   // const history = useHistory()
   const navigate = useNavigate()
-  const [year, setYear] = React.useState('2023')
-  const [month, setMonth] = React.useState('04')
+  const filterDate = localStorage.getItem('filterDate');
+  const datess = filterDate?.split(',')
+  console.log(datess)
+
+  const [year, setYear] = React.useState(datess[0] === 'null' ? '2023' : datess[0])
+  const [month, setMonth] = React.useState((datess[1] === 'null' || !datess[1])  ? '04' : datess[1])
   const [visible, setVisible] = useState(false)
   const [cardVisible, setCardVisible] = useState(false)
   const [cardName, setCardName] = useState('全部账户')
@@ -50,7 +55,7 @@ const ListPage = () => {
       setTimeout(() => {
         window?.StatusBar.backgroundColorByHexString("#F7F7F7");
 
-      },10)
+      }, 10)
     }
   }, [])
 
@@ -101,7 +106,6 @@ const ListPage = () => {
   const pvChange = (val, extend) => {
     setYear(val[0])
     setMonth(val[1])
-
     if (val && val[0] != '2023') {
       _dataColumns[1] = Array.from({ length: 12 }, (v, k) => k + 1).map(i => (
         { label: `${i}`, value: `${i < 10 ? '0' + i : i}` }
@@ -147,7 +151,7 @@ const ListPage = () => {
             </div>
             <div className='filter-top filter-user' onClick={() => { setCardVisible(true) }}>
               {cardName}&nbsp;
-              <DownFill style={{width:'0.1ream'}}/>
+              <DownFill style={{ width: '0.1ream' }} />
             </div>
           </div>
           <div className='filter-top-right'>
@@ -175,7 +179,7 @@ const ListPage = () => {
           </PullToRefresh>
         </div>
       </div>
-      <CardList cardName={cardName} setCardName={setCardName} cardVisible={cardVisible} setCardVisible={setCardVisible}/>
+      <CardList cardName={cardName} setCardName={setCardName} cardVisible={cardVisible} setCardVisible={setCardVisible} />
       <Popup
         visible={visible}
         showCloseButton
