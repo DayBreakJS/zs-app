@@ -11,7 +11,7 @@
 
 .MonthCard-img {
   position: relative;
-  height: 14vh;
+  min-height: 14vh;
   width: 100%;
 }
 
@@ -46,7 +46,7 @@
 .MonthCard-img-box-month {
   font-size: 4rem;
   font-family: "SimSun", sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: -0.5px;
   font-stretch: condensed;
 }

@@ -12,8 +12,7 @@ const Home = () => {
   React.useEffect(() => {
     if (window?.StatusBar) {
       setTimeout(() => {
-
-        window?.StatusBar.backgroundColorByHexString("#7EB2E9");
+        window?.StatusBar.backgroundColorByHexString("#84B8EE");
       }, 10)
 
     }

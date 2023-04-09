@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/alt-text */
 
 import React from 'react'
-import { Space, Switch, NavBar } from 'antd-mobile'
-import { RightOutline, MoreOutline, QuestionCircleOutline } from 'antd-mobile-icons'
+import { Space, Switch, NavBar, Badge } from 'antd-mobile'
+import { RightOutline, MoreOutline, QuestionCircleOutline  } from 'antd-mobile-icons'
 import { useNavigate, useLocation } from "react-router-dom";
 import './detail.css'
 import data from '../billdata.json'
@@ -50,7 +50,9 @@ const Detail = (props) => {
     <div style={{ fontSize: 24, background: '#F8F8F8' }}>
       <Space style={{ '--gap': '16px' }}>
         <img style={{ width: '1.5rem' }} src={require('./../img/ej.png')} />
-        <MoreOutline />
+        <Badge content='99' style={{ '--right': '5px', '--top': '4px', '--color': '#ED3A3B' }}>
+          <MoreOutline style={{ fontSize: 32 }} />
+        </Badge>
       </Space>
     </div>
   )

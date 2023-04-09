@@ -4,7 +4,7 @@ import React from 'react'
 import { Space, Button, Tag } from 'antd-mobile'
 import './css.css'
 import _ from 'lodash'
-import { HistogramOutline } from 'antd-mobile-icons'
+import { RightOutline, InformationCircleOutline } from 'antd-mobile-icons'
 import { useNavigate } from "react-router-dom";
 import AnimatedNumber from 'react-animated-number'
 import moment from 'moment'
@@ -34,11 +34,6 @@ const typeIcon = {
 const MonthCard = (props) => {
   const { year, month, income, expend, list, setYear, setMonth } = props
   const navigate = useNavigate()
-  const _toFixed = (n) => {
-    const num = Number(n);//将字符串转换为Number类型
-    const result = num.toFixed(2);//将Number类型转换为保留两位数的字符串数据
-    return result
-  }
 
   const dayList = list?.reduce((prve, cur) => {
     prve[cur?.ymd] = [...prve[cur?.ymd] || [], cur]
@@ -98,18 +93,15 @@ const MonthCard = (props) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleScroll = (e) => {
     const curDom = document.getElementById(`MonthCard-img-text${year}-${month}`)?.getBoundingClientRect()
-    // const curDom9 = document.getElementById(`MonthCard-img-text${'2019'}-${'09'}`)?.getBoundingClientRect()
 
     if (curDom?.top <= 111 && curDom?.top >= 0) {
       setYear(year)
       setMonth(month)
-    }
+    } 
     if (curDom?.top <= 0 && curDom.bottom <= window.innerHeight) {
-      // console.log(`MonthCard-img-text${year}-${month}`)
       setYear(year)
       setMonth(month)
-    }
-   
+    } 
 
   };
 
@@ -120,11 +112,14 @@ const MonthCard = (props) => {
     };
   }, [handleScroll]);
 
-  return (
+  const curMonth = year === "2023" && month === '04'
+  const curMonthStyle = { height: '17vh',paddingBottom:'1rem' }
+
+  return React.useMemo(()=>(
     <div className='MonthCard'  >
-      <div className='MonthCard-img'>
-        <img src={require('./../img/m1.jpg')} />
-        <div className='MonthCard-img-box'>
+      <div className='MonthCard-img' style={curMonth ? curMonthStyle : {}}>
+        <img src={require(`./../img/m${month.replace(/\b(0+)/gi, "")}.png`)} style={curMonth ? curMonthStyle : {}} />
+        <div className='MonthCard-img-box' style={curMonth ? curMonthStyle : {}}>
           <Space>
             <span className='MonthCard-img-text' id={`MonthCard-img-text${year}-${month}`}>
               <span className='MonthCard-img-box-month'>{month.replace(/\b(0+)/gi, "")}</span>
@@ -155,7 +150,7 @@ const MonthCard = (props) => {
             </span>
             </Space>
             <Space align="center">收入&nbsp;<span style={{ fontWeight: 500, fontSize: '1rem' }}>
-              {formatRMB(income)}
+              {formatRMB(income)} {curMonth && <InformationCircleOutline />}
               {/* ￥
               {_.isNumber(income) && (<AnimatedNumber component="text" value={_.isNumber(income) ? income : 0}
                 style={{
@@ -167,14 +162,16 @@ const MonthCard = (props) => {
                 duration={1000}
 
               />)} */}
-            </span></Space>
-
+            </span>
+            </Space>
           </Space>
+         { curMonth &&<div style={{fontSize:'0.8rem',position:'absolute',bottom:'2.1rem',left:'1rem'}}>设置预算 <RightOutline /></div> }
 
         </div>
       </div>
       <div className='MonthCard-item'>
         <CardDayItem />
+
       </div>
       <div>
 
@@ -182,7 +179,7 @@ const MonthCard = (props) => {
 
       {/* <p style={{ textAlign: 'center', color: '#ccc', lineHeight: '30px', fontSize: '14px' }}>本月无交易</p> */}
     </div>
-  )
+  ), [year, month])
 }
 
 export default MonthCard

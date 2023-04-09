@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable no-sparse-arrays */
 import React, { useState } from 'react'
-import { NavBar, Space, Button, Popup, Tabs, PickerView, PullToRefresh, TabBar, InfiniteScroll, Radio } from 'antd-mobile'
+import { NavBar, Space, Button, Popup, Tabs, PickerView, PullToRefresh, TabBar, InfiniteScroll, Badge } from 'antd-mobile'
 import { SearchOutline, MoreOutline, AddOutline, DownFill } from 'antd-mobile-icons'
 import { useNavigate, useLocation } from "react-router-dom";
 import MonthCard from '../components/MonthCard';
@@ -10,6 +10,7 @@ import MonthCard from '../components/MonthCard';
 import { mockRequest } from '../mock-request'
 import { sleep } from 'antd-mobile/es/utils/sleep'
 import CardList from '../components/CardList'
+import { formatRMB } from "../utils"
 
 const _dataColumns = [
   [
@@ -33,40 +34,36 @@ const _dataColumns = [
 ]
 
 const ListPage = () => {
-  // const history = useHistory()
   const navigate = useNavigate()
   const filterDate = localStorage.getItem('filterDate');
   const datess = filterDate?.split(',')
-  console.log(datess)
 
   const [year, setYear] = React.useState(datess[0] === 'null' ? '2023' : datess[0])
-  const [month, setMonth] = React.useState((datess[1] === 'null' || !datess[1])  ? '04' : datess[1])
+  const [month, setMonth] = React.useState((datess[1] === 'null' || !datess[1]) ? '04' : datess[1])
   const [visible, setVisible] = useState(false)
   const [cardVisible, setCardVisible] = useState(false)
   const [cardName, setCardName] = useState('全部账户')
 
-
   const [dataList, setDataList] = useState([])
   const [hasMore, setHasMore] = useState(true)
   const [dataColumns, setDataColumns] = React.useState(_dataColumns)
+  const [floatData, setFloatData] = React.useState(null)
+  const [showFloat, setShowFloat] = React.useState(false)
+
 
   React.useEffect(() => {
     if (window?.StatusBar) {
       setTimeout(() => {
         window?.StatusBar.backgroundColorByHexString("#F7F7F7");
-
       }, 10)
     }
   }, [])
 
 
   async function loadMore() {
-    // window.scrollTo(0, 10)
     const filterDate = localStorage.getItem('filterDate');
-
     if (filterDate && filterDate !== "null") {
       const datess = filterDate.split(',')
-      console.log(datess)
       setYear(datess[0])
       setMonth(datess[1])
       const append = await mockRequest(year, month)
@@ -78,23 +75,19 @@ const ListPage = () => {
     }
   }
 
-
   const right = (
     <div style={{ fontSize: 24 }}>
-      <Space style={{ '--gap': '16px' }}>
+      <Space style={{ '--gap': '10px' }}>
         <SearchOutline className='SearchOutline' />
-        <MoreOutline />
+          <MoreOutline style={{ fontSize: 32 }} />
       </Space>
     </div>
   )
-
-
 
   const back = () => {
     navigate('/home')
     localStorage.setItem('filterDate', null)
     window.scrollTo(0, 10)
-
   }
 
   const statusRecord = {
@@ -117,7 +110,6 @@ const ListPage = () => {
         { label: '2', value: '02' },
         { label: '3', value: '03' },
         { label: '4', value: '04' },
-
       ]
       setDataColumns(_dataColumns)
     }
@@ -125,18 +117,40 @@ const ListPage = () => {
   }
 
   const onFilter = async () => {
-    await window.scrollTo(0, 10)
-
+    window.scrollTo(0, 10)
     const append = await mockRequest(year, month)
-
     setDataList(append)
     setVisible(false)
     setHasMore(true)
-
+    setShowFloat(false)
     localStorage.setItem('filterDate', [year, month])
   }
 
-  // console.log(dataList,'---dataList')
+  React.useEffect(() => {
+    const float = dataList.filter(item => item?.year == year && item?.month == month)[0]
+    setFloatData(float)
+  }, [year, month, dataList])
+
+  const handleScroll = () => {
+    const contentDom = document.getElementById(`listPage-content`)?.getBoundingClientRect()
+    const scrollHeight = contentDom.top;
+    if (scrollHeight<10) {
+      setShowFloat(true)
+    } else {
+      setShowFloat(false)
+    }
+  }
+
+  React.useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [handleScroll]);
+
+
+  // console.log(showFloat,'---showFloat')
+  // console.log(dataList, year, month, floatData,'---dataList')
   return (
     <div className='listPage'>
       <div className='listPage-top'>
@@ -159,9 +173,20 @@ const ListPage = () => {
             <DownFill />
           </div>
         </div>
+        {
+           floatData && showFloat  ? <div style={{ height: '35px', paddingLeft: 15 }}>
+            <span style={{ fontSize: '0.9rem', lineHeight: '30px', color: '#959595' }}>
+              支出 {formatRMB(floatData?.expend)} &nbsp;&nbsp;收入 {formatRMB(floatData?.income)}
+            </span>
+            <Button className='MonthCard-img-btn' size='mini' shape='rounded' color='primary'>
+              <img style={{ width: '1rem', height: '1rem', filter: 'none', position: 'relative', top: '3px', left: '-2px' }} src={require('./../img/fx.png')} />分析
+            </Button>
+          </div> : null
+        }
+
       </div>
 
-      <div className='listPage-content' >
+      <div className='listPage-content' id="listPage-content" style={{ marginTop:'11.2vh'}} >
         <div style={{ paddingBottom: '6.5vh' }}>
           <PullToRefresh
             completeDelay={100}
