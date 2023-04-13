@@ -5,14 +5,10 @@ import React, { useState } from 'react'
 import { NavBar, Space, Button, Popup, Radio } from 'antd-mobile'
 
 
-const CardList = ({ cardName, setCardName, cardVisible, setCardVisible }) => {
+const CardList = ({ onChange, cardName, cardVisible, setCardVisible }) => {
 
   const styleDiv = { width: '100vw', padding: '0 5vw', lineHeight: '7vh' }
 
-  const onChange = (value) => {
-    setCardName(value)
-    setCardVisible(false)
-  }
 
   return (
     <Popup
@@ -23,7 +19,7 @@ const CardList = ({ cardName, setCardName, cardVisible, setCardVisible }) => {
       bodyStyle={{
         borderTopLeftRadius: '10px',
         borderTopRightRadius: '10px',
-        height: '45vh'
+        height: '50vh'
       }}
     >
       <Radio.Group value={cardName} onChange={onChange} >
@@ -46,9 +42,15 @@ const CardList = ({ cardName, setCardName, cardVisible, setCardVisible }) => {
         <div className='cardList' style={styleDiv}>
           <span style={{ width: '85vw', display: 'inline-block' }}>
             <img src={require('./../img/logo.png')} style={{ width: '1.5rem', marginTop: '-7px', verticalAlign: 'middle' }} />
+            <span style={{ fontSize: '1.1rem' }} > &nbsp;&nbsp;招商银行一卡通(0877)</span>
+          </span>
+          <Radio value="一卡通(0877)" />
+        </div>
+        <div className='cardList' style={styleDiv}>
+          <span style={{ width: '85vw', display: 'inline-block' }}>
+            <img src={require('./../img/logo.png')} style={{ width: '1.5rem', marginTop: '-7px', verticalAlign: 'middle' }} />
             <span style={{ fontSize: '1.1rem' }} > &nbsp;&nbsp;招商银行一卡通(8562)</span>
           </span>
-
           <Radio value="一卡通(8562)" />
         </div>
         <div className='cardList' style={styleDiv}>

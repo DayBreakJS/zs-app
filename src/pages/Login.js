@@ -86,6 +86,8 @@ const Login = () => {
         onClick={() => {
           navigate('/listPage')
           localStorage.setItem('filterDate', null)
+          sessionStorage.setItem('cardName',null)
+
           // window.location.reload()
 
         }}

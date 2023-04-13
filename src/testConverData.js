@@ -28,3 +28,23 @@ export default (data) => {
   })
 
 }
+
+
+// reader.onload = (e) => {
+//   const data = e.target.result
+//   const wb = XLSX.read(data, { type: 'binary', cellDates: true })
+
+//   const wsname = wb.SheetNames[0]
+//   const ws = wb.Sheets[wsname]
+//   const jsonData = XLSX.utils.sheet_to_json(ws)
+//   // console.log(jsonData, '---jsonData')
+//   console.log(jsonData.map(item => {
+//     return ({
+//       ...item,
+//       '日期': moment(item['日期']).format("YYYY/MM/DD HH:mm:ss"),
+//       '时间': moment(item['时间']).format("HH:mm:ss"),
+//     })
+//   }))
+//   importData(jsonData)
+//   source.value = '' //清空上传文件组件的文件，可以再次上传同样的文件
+// }

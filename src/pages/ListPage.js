@@ -9,8 +9,13 @@ import MonthCard from '../components/MonthCard';
 // import converData  from '../converData';
 import { mockRequest } from '../mock-request'
 import { sleep } from 'antd-mobile/es/utils/sleep'
-import CardList from '../components/CardList'
+import CardListSelect from '../components/CardListSelect'
 import { formatRMB } from "../utils"
+import data0877 from '../data/0877.json'
+import data8562 from '../data/8562'
+import data2023 from '../data/2023.json'
+import data2023_8562 from '../data/2023-8562.json'
+
 
 const _dataColumns = [
   [
@@ -36,13 +41,29 @@ const _dataColumns = [
 const ListPage = () => {
   const navigate = useNavigate()
   const filterDate = localStorage.getItem('filterDate');
+  const _cardName = sessionStorage.getItem('cardName');
   const datess = filterDate?.split(',')
+
 
   const [year, setYear] = React.useState(datess[0] === 'null' ? '2023' : datess[0])
   const [month, setMonth] = React.useState((datess[1] === 'null' || !datess[1]) ? '04' : datess[1])
   const [visible, setVisible] = useState(false)
   const [cardVisible, setCardVisible] = useState(false)
-  const [cardName, setCardName] = useState('全部账户')
+  const [cardName, setCardName] = useState(_cardName === 'null' ? '全部账户' : _cardName)
+  
+  let _data = data2023
+  if (cardName == '全部账户') {
+    _data = data2023
+  } else if (cardName == '一卡通(0877)') {
+    _data = data0877
+  } else if (cardName == '一卡通(8562)') {
+    _data = data8562
+  } else {
+    _data = data2023_8562
+  }
+
+  const [dataItems, setDataItems] = React.useState(_data)
+
 
   const [dataList, setDataList] = useState([])
   const [hasMore, setHasMore] = useState(true)
@@ -66,10 +87,10 @@ const ListPage = () => {
       const datess = filterDate.split(',')
       setYear(datess[0])
       setMonth(datess[1])
-      const append = await mockRequest(year, month)
+      const append = await mockRequest(dataItems,year, month )
       setDataList(append)
     } else {
-      const append = await mockRequest()
+      const append = await mockRequest(dataItems )
       setDataList(append)
       setHasMore(append.length > 0)
     }
@@ -113,12 +134,46 @@ const ListPage = () => {
       ]
       setDataColumns(_dataColumns)
     }
-
   }
+
+
+  const DATALIST = {
+    '全部账户': data2023,
+    '一卡通(0877)': data0877,
+    '一卡通(8562)': data8562,
+  }
+  const onChange = async (value) => {
+    console.log(value, '---value')
+    const append = await mockRequest(DATALIST[value] || data2023_8562, year, month)
+    setDataList(append)
+    // if (cardName == '全部账户') {
+    //   const append = await mockRequest(data2023)
+    //   setDataList(append)
+    // } else if (cardName == '一卡通(0877)') {
+    //   const append = await mockRequest(data0877)
+    //   setDataList(append)
+    // } else if (cardName == '一卡通(8562)') {
+    //   const append = await mockRequest(data8562)
+    //   setDataList(append)
+    // } else {
+    //   const append = await mockRequest(data2023_8562)
+    //   setDataList(append)
+    // }
+
+    // if (value === '一卡通(8562)') {
+    //   setDataItems(data2023_8562)
+    //   const append = await mockRequest(data2023_8562)
+    //   setDataList(append)
+    // }
+    setCardName(value)
+    sessionStorage.setItem('cardName', value)
+    setCardVisible(false)
+  }
+
 
   const onFilter = async () => {
     window.scrollTo(0, 10)
-    const append = await mockRequest(year, month)
+    const append = await mockRequest(DATALIST[cardName] || data2023_8562, year, month)
     setDataList(append)
     setVisible(false)
     setHasMore(true)
@@ -194,7 +249,7 @@ const ListPage = () => {
             renderText={(status) => { return <div>{statusRecord[status]}</div> }}
             onRefresh={async () => { await sleep(10) }}
           >
-            {dataList.map(item => <MonthCard {...item} setYear={setYear} setMonth={setMonth} />)}
+            {dataList.map(item => <MonthCard {...item} setYear={setYear} setMonth={setMonth} cardName={cardName} dataItems={dataItems} />)}
             <InfiniteScroll
               loadMore={loadMore}
               hasMore={hasMore}
@@ -204,7 +259,8 @@ const ListPage = () => {
           </PullToRefresh>
         </div>
       </div>
-      <CardList cardName={cardName} setCardName={setCardName} cardVisible={cardVisible} setCardVisible={setCardVisible} />
+      {/* 卡号 */}
+      <CardListSelect cardName={cardName} onChange={onChange} cardVisible={cardVisible} setCardVisible={setCardVisible} />
       <Popup
         visible={visible}
         showCloseButton
@@ -242,8 +298,6 @@ const ListPage = () => {
           icon={<img style={{ width: '1.8rem' }} src={require('./../img/mon.png')} />}
           title={'账本'} />
       </TabBar>
-
-
       <div className='add-icon'>
         <AddOutline />
       </div>

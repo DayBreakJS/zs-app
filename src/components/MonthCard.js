@@ -14,6 +14,7 @@ const typeIcon = {
   "退款": "退款",
   "出行": "出行",
   "酒店": "酒店",
+  "餐饮":'餐饮',
   "生活日用": "生活日用",
   "休闲娱乐": "休闲娱乐",
   "医疗保健": "医疗保健",
@@ -32,13 +33,21 @@ const typeIcon = {
 }
 
 const MonthCard = (props) => {
-  const { year, month, income, expend, list, setYear, setMonth } = props
+  const { year, month, income, expend, list, setYear, setMonth, cardName, dataItems } = props
   const navigate = useNavigate()
 
-  const dayList = list?.reduce((prve, cur) => {
+  // console.log(cardName, list, '---list')
+ 
+  let dayList = list?.reduce((prve, cur) => {
     prve[cur?.ymd] = [...prve[cur?.ymd] || [], cur]
     return prve
   }, {})
+  // if (cardName?.indexOf('0877') > -1) {
+  //   dayList = list.filter(item => !item?.card || item?.card?.indexOf('0877')>-1)?.reduce((prve, cur) => {
+  //     prve[cur?.ymd] = [...prve[cur?.ymd] || [], cur]
+  //     return prve
+  //   }, {})
+  // }
 
   const CardDayItem = () => {
     return Object.keys(dayList).map(date => {
@@ -47,19 +56,19 @@ const MonthCard = (props) => {
       return (
         <>
           <Tag color='#F9F9F9'
-            style={{ color: '#000', padding: ' 0.2rem 0.5rem', margin: '0.5rem 0 0.3rem 0.5rem' }}>
+            style={{ color: '#000', padding: ' 0.2rem 0.5rem', margin: '0.4rem 0 0.3rem 0.5rem' }}>
             {dm}
           </Tag>
           {
             dayList[date]?.map(item => {
               // console.log(item.card)
               // const ymds = item?.ymd.split('/')
-              const money = item?.amount > 0 ? `+${formatRMB(item?.amount)}` : `-${formatRMB(item?.amount * -1)}`
+              const money = item?.amount > 0 ? `+${formatRMB(item?.amount, item['币种符号'])}` : `-${formatRMB(item?.amount * -1, item['币种符号'])}`
               return (
                 <div onClick={() => {
                   // history.push('/some-other-page')
                   // window.history.push(`/detail?id=${item.date}`)
-                  navigate(`/detail?id=${item.date}`)
+                  navigate(`/detail?id=${item.date}&cardName=${cardName}`)
                 }}>
                   <div
                     // id={`MonthCard-img-div${ymds[0]}-${ymds[1]}`}
@@ -68,15 +77,22 @@ const MonthCard = (props) => {
                       <img src={require(`./../img/typeIcon/${typeIcon[item?.icon] || '现金'}.png`)}
                         style={{ width: '1.8rem', position: "relative", top: '2px', left: '-5px' }}
                       />
-                      <span style={{ fontSize: '1rem', fontWeight: '500', marginLeft: '-10px' }}>{item?.abstract}</span>
+                      <span style={{ fontSize: '1rem', fontWeight: '400', marginLeft: '-10px' }}>
+                        {item?.abstract}
+                      </span>
                     </Space>
-                    <Space style={{ fontSize: '1rem', fontWeight: '500' }}>{money} </Space>
+                    <Space style={{ fontSize: '1rem', fontWeight: '500', color: item['不计入']?'#919191':'',marginTop:'8px'}}>
+                      {item['不计入'] && <Tag style={{ borderRadius: '10px' }} color='#F79231' fill='outline' >不计入</Tag>}
+                      {money}
+                    </Space>
                   </div>
 
                   <div className='MonthCard-item-balance'>
-                    <span > {item?.card ? item?.card : '储蓄卡0877'} {moment(item?.time, 'HH:mm:ss').format('HH:mm')} </span>
+                    <span > {cardName == '全部账户' && ((item?.card || item['时间前卡号']) ? item?.card || item['时间前卡号'] : '储蓄卡0877')}
+                      {moment(item?.date, 'HH:mm:ss').format('HH:mm').slice(0, 5)}
+                    </span>
                     {
-                      item?.balance && <span className="MonthCard-item-balance-b">余额 {formatRMB(item?.balance)}</span>
+                      item?.balance && <span className="MonthCard-item-balance-b">余额 {formatRMB(item?.balance, item['币种符号'])}</span>
                     }
                     
                   </div>
@@ -179,7 +195,7 @@ const MonthCard = (props) => {
 
       {/* <p style={{ textAlign: 'center', color: '#ccc', lineHeight: '30px', fontSize: '14px' }}>本月无交易</p> */}
     </div>
-  ), [year, month])
+  ), [year, month, cardName, dataItems])
 }
 
 export default MonthCard

@@ -9,8 +9,10 @@ import testData from './testData.json'
 let count = 0
 let start = 0
 let end = 0
-export async function mockRequest(year, month) {
-  const _data = testConverData(testData)
+export async function mockRequest(items,year, month ) {
+  console.log(items,'----sss')
+  if (items) {
+  const _data = items
   const list = converData(_data).reverse().filter(i => Boolean(i.month))
 
   const huizong = _data.filter(item => item?.hz).reduce((prev, cur) => {
@@ -56,4 +58,5 @@ export async function mockRequest(year, month) {
 
   return list
 
+  }
 }

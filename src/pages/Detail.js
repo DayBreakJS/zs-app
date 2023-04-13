@@ -9,13 +9,23 @@ import data from '../billdata.json'
 import _ from 'lodash'
 import moment from 'moment'
 
+import data0877 from '../data/0877.json'
+import data8562 from '../data/8562.json'
+import data2023 from '../data/2023.json'
+import data2023_8562 from '../data/2023-8562.json'
+
+
 import { formatRMB } from "../utils"
 
 const icons = {
   '张强': 'tx',
   '葛晓君': 'tx',
+  '爱立信 (中国) 通信有限公司': 'tx',
+  '爱立信（中国）通信有限公司': 'tx',
   '王翰泽': 'tx',
   '许宝丹': 'tx',
+  '史新华': 'tx',
+  '李辉美':'tx',
   '结息': 'wx',
   '财付通-微信转账': 'wx'
 }
@@ -36,6 +46,7 @@ const typeIcon = {
   "公益": "公益",
   "保险": "保险",
   "还款": "还款",
+  "报销": "报销",
   "其他支出": "其他支出",
 }
 
@@ -44,7 +55,27 @@ const Detail = (props) => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const id = searchParams.get('id')
-  const curItem = _.find(data, { 'date': id, })
+  const cardName = searchParams.get('cardName')
+
+
+  let _data = data
+  if (cardName == '全部账户') {
+    _data = data2023
+  } else if (cardName == '一卡通(0877)') {
+    _data = data0877
+  } else if (cardName == '一卡通(8562)') {
+    _data = data8562
+  } else  {
+    _data = data2023_8562
+  }
+
+
+  console.log(cardName, '--cardName')
+  console.log(_data, '--cardName')
+
+  const curItem = _.find(_data, { 'date': id, })
+
+
 
   const right = (
     <div style={{ fontSize: 24, background: '#F8F8F8' }}>
@@ -75,7 +106,7 @@ const Detail = (props) => {
 
 
 
-  const money = curItem?.amount > 0 ? `+ ${formatRMB(curItem?.amount)}` : `- ${formatRMB(curItem?.amount * -1)}`
+  const money = curItem?.amount > 0 ? `+ ${formatRMB(curItem?.amount, curItem['币种符号'])}` : `- ${formatRMB(curItem?.amount * -1, curItem['币种符号'])}`
   const date = moment(curItem?.date).format("YYYY-MM-DD HH:mm:ss")
   return (
     <div className='detail-Page'>
@@ -84,34 +115,67 @@ const Detail = (props) => {
       </NavBar>
       <div className='detail-Page-card'>
         <div style={{ width: '100%', margin: '0 auto', textAlign: 'center' }}>
-          <Space style={{ marginTop: '1.5rem' }} align="center">
+          {!curItem['币种符号']&& <Space style={{ marginTop: '1.5rem' }} align="center">
             <img style={{ width: '1.5rem' }} src={require(`./../img/ttIcon/${icons[curItem?.title] || 'dp'}.png`)} />
             <span style={{ fontSize: '1rem', color: '#808080' }}>{curItem?.title}</span>
-          </Space>
+          </Space>}
 
         </div>
-        <div style={{ textAlign: 'center', width: '100%', }}>
+        <div style={{ textAlign: 'center', width: '100%' }}>
           <Space align="center">
-            <span style={{ fontSize: '2.2rem', color: '#000', lineHeight: '4rem' }}>{money} </span>
+            <span style={{ fontSize: '2.2rem', color: '#000', lineHeight: '4rem',  }}>{money} </span>
             <QuestionCircleOutline style={{ fontSize: '1.4rem', color: '#ccc', marginRight: '-1rem' }} />
           </Space>
         </div>
-        <p style={{ textAlign: 'center', fontSize: '1rem', color: '#808080', marginTop: '-0.01rem' }}>
+        <p style={{ textAlign: 'center', fontSize: '1rem', color: '#808080', marginTop: '-0.01rem', }}>
           {curItem?.balance ? '余额' +formatRMB(curItem?.balance):''}
         </p>
         <div style={{ width: '84.5vw', margin: '1.5rem auto', marginTop: '2rem' }}>
           <span style={{ fontSize: "1rem", color: '#808080' }}>交易卡号</span>
-          <span style={{ fontSize: "1rem", float: 'right' }}>一卡通 4682********0877</span>
+          <span style={{ fontSize: "1rem", float: 'right' }}>{curItem['卡号'] ? curItem['卡号']:'一卡通 4682********0877'}</span>
         </div>
         <div style={{ width: '84.5vw', margin: '1.5rem auto' }}>
           <span style={{ fontSize: "1rem", color: '#808080' }}>交易时间</span>
           <span style={{ fontSize: "1rem", float: 'right' }}>{date}</span>
         </div>
         {
+          curItem['付款银行'] && (
+            <div style={{ width: '84.5vw', margin: '1.5rem auto' }}>
+              <span style={{ fontSize: "1rem", color: '#808080' }}>付款银行</span>
+              <span style={{ fontSize: "1rem", float: 'right' }}>{curItem['付款银行']}</span>
+            </div>
+          )
+        }
+        {
+          curItem['转账附言'] && (
+            <div style={{ width: '84.5vw', margin: '1.5rem auto' }}>
+              <span style={{ fontSize: "1rem", color: '#808080' }}>转账附言</span>
+              <span style={{ fontSize: "1rem", float: 'right' ,width:'68vw',textAlign:'end'}}>{curItem['转账附言']}</span>
+            </div>
+          )
+        }
+        {
           curItem?.channel && (
             <div style={{ width: '84.5vw', margin: '1.5rem auto' }}>
               <span style={{ fontSize: "1rem", color: '#808080' }}>交易渠道</span>
               <span style={{ fontSize: "1rem", float: 'right' }}>{curItem?.channel}</span>
+            </div>
+          )
+        }
+        
+        {
+          curItem['国家或地区'] && (
+            <div style={{ width: '84.5vw', margin: '1.5rem auto' }}>
+              <span style={{ fontSize: "1rem", color: '#808080' }}>国家或地区</span>
+              <span style={{ fontSize: "1rem", float: 'right' }}>{curItem['国家或地区']}</span>
+            </div>
+          )
+        }
+        {
+          curItem['原交易金额（币种）'] && (
+            <div style={{ width: '84.5vw', margin: '1.5rem auto' }}>
+              <span style={{ fontSize: "1rem", color: '#808080' }}>原交易金额（币种）</span>
+              <span style={{ fontSize: "1rem", float: 'right' }}>{curItem['原交易金额（币种）']}</span>
             </div>
           )
         }
@@ -149,10 +213,14 @@ const Detail = (props) => {
             </Space>
           </span>
         </div>
-        <div style={{ width: '84.5vw', margin: '1.5rem auto' }}>
-          <span style={{ fontSize: "1rem", color: '#808080' }}>对象</span>
-          <span style={{ fontSize: "1rem", float: 'right' }}>本人 <RightOutline /> </span>
-        </div>
+        {
+          (!curItem['付款银行'] && !curItem['币种符号']) && (
+            <div style={{ width: '84.5vw', margin: '1.5rem auto' }}>
+              <span style={{ fontSize: "1rem", color: '#808080' }}>对象</span>
+              <span style={{ fontSize: "1rem", float: 'right' }}>本人 <RightOutline /> </span>
+            </div>
+          )
+        }
 
         <div style={{ width: '84.5vw', margin: '1.5rem auto' }}>
           <span style={{ fontSize: "1rem", color: '#808080' }}>所属账本</span>
