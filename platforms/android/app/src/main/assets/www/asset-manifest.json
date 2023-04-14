@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "./static/css/main.58719855.css",
-    "main.js": "./static/js/main.41386467.js",
+    "main.css": "./static/css/main.69e315a0.css",
+    "main.js": "./static/js/main.2261c11e.js",
     "static/js/787.b9bfd242.chunk.js": "./static/js/787.b9bfd242.chunk.js",
     "static/media/b1.png": "./static/media/b1.e8b2a8c41339cd70b316.png",
     "static/media/b2.png": "./static/media/b2.1b50f90c5a6628d32768.png",
@@ -31,6 +31,8 @@
     "static/media/m8.png": "./static/media/m8.14537e41224f33a4b8c5.png",
     "static/media/fx.png": "./static/media/fx.43076627b8baeb9b7dc7.png",
     "static/media/m9.png": "./static/media/m9.34de957e665aecaf799d.png",
+    "static/media/WeChatpng": "./static/media/WeChat17dc31514120fd7e1abef6ad8239acc3.068f39fc7cad01305c48.png",
+    "static/media/外汇.png": "./static/media/外汇.068f39fc7cad01305c48.png",
     "static/media/退款.png": "./static/media/退款.11b23ee4de912f8e757c.png",
     "static/media/m4.png": "./static/media/m4.bde61f12482eb60e96c1.png",
     "static/media/报销.png": "./static/media/报销.d9be7a239c47e449d86e.png",
@@ -58,12 +60,12 @@
     "static/media/1.png": "./static/media/1.3003f7b4a569e059f4c3.png",
     "static/media/红包.png": "./static/media/红包.d8772ff01061361a9997.png",
     "index.html": "./index.html",
-    "main.58719855.css.map": "./static/css/main.58719855.css.map",
-    "main.41386467.js.map": "./static/js/main.41386467.js.map",
+    "main.69e315a0.css.map": "./static/css/main.69e315a0.css.map",
+    "main.2261c11e.js.map": "./static/js/main.2261c11e.js.map",
     "787.b9bfd242.chunk.js.map": "./static/js/787.b9bfd242.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.58719855.css",
-    "static/js/main.41386467.js"
+    "static/css/main.69e315a0.css",
+    "static/js/main.2261c11e.js"
   ]
 }

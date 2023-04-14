@@ -11,7 +11,7 @@ const now = moment();
 let dateText='上午好'
 if (now.hour() >= 6 && now.hour() < 12) {
   dateText = '上午好'
-} else if (now.hour() >= 12 && now.hour() < 18) {
+} else if (now.hour() >= 12 && now.hour() < 17) {
   dateText = '下午好'
 } else {
   dateText = '晚上好'
@@ -35,6 +35,7 @@ const Login = () => {
     if (window?.StatusBar) {
       setTimeout(() => {
         window?.StatusBar.backgroundColorByHexString("#FFF");
+        window?.StatusBar?.styleBlackOpaque();
       }, 10)
     }
   },[])

@@ -29,6 +29,7 @@ const typeIcon = {
   "公益": "公益",
   "保险": "保险",
   "还款": "还款",
+  "外汇": '外汇',
   "其他支出": "其他支出",
 }
 
@@ -61,11 +62,25 @@ const MonthCard = (props) => {
           </Tag>
           {
             dayList[date]?.map(item => {
-              // console.log(item.card)
-              // const ymds = item?.ymd.split('/')
-              const money = item?.amount > 0 ? `+${formatRMB(item?.amount, item['币种符号'])}` : `-${formatRMB(item?.amount * -1, item['币种符号'])}`
+              let money = ''
+              if (item?.amount > 0) {
+                if (item['币种符号']=='欧') {
+                  money = `+€ ${item?.amount}`
+                } else {
+                  money = `+${formatRMB(item?.amount, item['币种符号'])}`
+                }
+              } else {
+                if (item['币种符号'] == '欧') {
+                  money = `-€ ${item?.amount * -1}`
+                } else {
+                  money = `-${formatRMB(item?.amount * -1, item['币种符号'])}`
+                }
+              }
+              // const money = item?.amount > 0 ? `+${formatRMB(item?.amount, item['币种符号'])}` : `-${formatRMB(item?.amount * -1, item['币种符号'])}`
               return (
-                <div onClick={() => {
+                <div
+                  // style={{ background: item['__EMPTY'] == '重点条目' ? 'red' : '' }}
+                  onClick={() => {
                   // history.push('/some-other-page')
                   // window.history.push(`/detail?id=${item.date}`)
                   navigate(`/detail?id=${item.date}&cardName=${cardName}`)
@@ -81,18 +96,24 @@ const MonthCard = (props) => {
                         {item?.abstract}
                       </span>
                     </Space>
-                    <Space style={{ fontSize: '1rem', fontWeight: '500', color: item['不计入']?'#919191':'',marginTop:'8px'}}>
+                    <Space style={{ fontSize: '1rem', fontWeight: '500', color: item['不计入']?'#919191':'',marginTop:'7px'}}>
                       {item['不计入'] && <Tag style={{ borderRadius: '10px' }} color='#F79231' fill='outline' >不计入</Tag>}
                       {money}
                     </Space>
                   </div>
 
                   <div className='MonthCard-item-balance'>
-                    <span > {cardName == '全部账户' && ((item?.card || item['时间前卡号']) ? item?.card || item['时间前卡号'] : '储蓄卡0877')}
-                      {moment(item?.date, 'HH:mm:ss').format('HH:mm').slice(0, 5)}
+                    <span >
+                      {cardName == '全部账户' && ((item?.card || item['时间前卡号']) ? item?.card || item['时间前卡号'] : '储蓄卡0877')}
+                      &nbsp;{moment(item?.date, 'HH:mm:ss').format('HH:mm').slice(0, 5)}
                     </span>
                     {
-                      item?.balance && <span className="MonthCard-item-balance-b">余额 {formatRMB(item?.balance, item['币种符号'])}</span>
+                      item?.balance && <span className="MonthCard-item-balance-b">
+                        余额:&nbsp;
+                        {/* {formatRMB(item?.balance, item['币种符号'])} */}
+                        {/* {item['币种符号'] == '欧' && item?.balance>0?'+ ':'- '} */}
+                        {item['币种符号'] == '欧' ? ' € ' + item?.balance : formatRMB(item?.balance, item['币种符号'])}
+                      </span>
                     }
                     
                   </div>
@@ -148,8 +169,8 @@ const MonthCard = (props) => {
           </Space>
           <Space className='MonthCard-img-box-money'>
             <Space align="center">支出&nbsp;<span style={{ fontWeight: 500, fontSize: '1rem' }}>
-              {formatRMB(expend)}
-              {/* ￥
+              {/* {formatRMB(expend)} */}
+              ￥
               {_.isNumber(expend) && (<AnimatedNumber component="text" value={_.isNumber(expend) ? expend : 0}
                 style={{
                   transition: '0.8s ease-out',
@@ -157,17 +178,17 @@ const MonthCard = (props) => {
                 }}
                 frameStyle={perc => (perc === 100 ? {} : { opacity: 1 })}
                 stepPrecision={0}
-                duration={1000}
+                duration={400}
               // formatValue={(value) => value.toFixed(0)}
               // formatValue={n => _.isNumber(expend) ? expend :0}
 
-              />)} */}
+              />)}
               {/* {formatRMB(expend)} */}
             </span>
             </Space>
             <Space align="center">收入&nbsp;<span style={{ fontWeight: 500, fontSize: '1rem' }}>
-              {formatRMB(income)} {curMonth && <InformationCircleOutline />}
-              {/* ￥
+              {/* {formatRMB(income)} {curMonth && <InformationCircleOutline />} */}
+              ￥
               {_.isNumber(income) && (<AnimatedNumber component="text" value={_.isNumber(income) ? income : 0}
                 style={{
                   transition: '0.8s ease-out',
@@ -175,9 +196,9 @@ const MonthCard = (props) => {
                 }}
                 frameStyle={perc => (perc === 100 ? {} : { opacity: 1 })}
                 stepPrecision={0}
-                duration={1000}
+                duration={400}
 
-              />)} */}
+              />)}
             </span>
             </Space>
           </Space>
@@ -185,7 +206,7 @@ const MonthCard = (props) => {
 
         </div>
       </div>
-      <div className='MonthCard-item'>
+      <div className='MonthCard-item' style={{ paddingBottom:'10px'}}>
         <CardDayItem />
 
       </div>

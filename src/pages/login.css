@@ -63,6 +63,21 @@
   min-height: 1.5em;
 }
 
+.Login input::placeholder {
+  font-size: 1.2rem;
+}
 .Login input::-webkit-input-placeholder {
+  font-size: 1.2rem;
+}
+
+.Login input:-moz-placeholder {
+  font-size: 1.2rem;
+}
+
+.Login input::-moz-placeholder {
+  font-size: 1.2rem;
+}
+
+.Login input:-ms-input-placeholder {
   font-size: 1.2rem;
 }

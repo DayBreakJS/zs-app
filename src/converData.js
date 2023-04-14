@@ -7,7 +7,7 @@ export default (data) => {
 
   // 遍历原始数据中的每一项
   // const sum = data.filter(item => item.sum)
-  console.log(data, '----')
+  // console.log(data, '----')
   data.forEach(item => {
     // 获取当前项的年份和月份
     let year = item?.date?.slice(0, 4) || '';

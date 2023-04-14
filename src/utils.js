@@ -43,12 +43,12 @@ function formatRMB(num, type) {
   if (type === 'HKD') {
     str=str.replace('HK$', 'HKD')
   }
-  if (type === '欧') {
-    console.log(formatted,'---formattedformatted')
-    str = formatted.replace(/([0-9.,]+) (€)/g, '$2$1')
-    console.log(formatted.replace(/([0-9.,]+) (€)/g, '$2$1'), '---str')
+  // if (type === '欧') {
+  //   console.log(formatted,'---formattedformatted')
+  //   str = formatted.replace(/([0-9.,]+) (€)/g, '$2$1')
+  //   console.log(formatted.replace(/([0-9.,]+) (€)/g, '$2$1'), '---str')
 
-  }
+  // }
   return str;
 }
 

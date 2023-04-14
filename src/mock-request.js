@@ -10,7 +10,7 @@ let count = 0
 let start = 0
 let end = 0
 export async function mockRequest(items,year, month ) {
-  console.log(items,'----sss')
+  // console.log(items,'----sss')
   if (items) {
   const _data = items
   const list = converData(_data).reverse().filter(i => Boolean(i.month))

@@ -73,6 +73,7 @@ const ListPage = () => {
 
 
   React.useEffect(() => {
+    loadMore()
     if (window?.StatusBar) {
       setTimeout(() => {
         window?.StatusBar.backgroundColorByHexString("#F7F7F7");
@@ -142,43 +143,29 @@ const ListPage = () => {
     '一卡通(0877)': data0877,
     '一卡通(8562)': data8562,
   }
-  const onChange = async (value) => {
-    console.log(value, '---value')
-    const append = await mockRequest(DATALIST[value] || data2023_8562, year, month)
-    setDataList(append)
-    // if (cardName == '全部账户') {
-    //   const append = await mockRequest(data2023)
-    //   setDataList(append)
-    // } else if (cardName == '一卡通(0877)') {
-    //   const append = await mockRequest(data0877)
-    //   setDataList(append)
-    // } else if (cardName == '一卡通(8562)') {
-    //   const append = await mockRequest(data8562)
-    //   setDataList(append)
-    // } else {
-    //   const append = await mockRequest(data2023_8562)
-    //   setDataList(append)
-    // }
-
-    // if (value === '一卡通(8562)') {
-    //   setDataItems(data2023_8562)
-    //   const append = await mockRequest(data2023_8562)
-    //   setDataList(append)
-    // }
-    setCardName(value)
-    sessionStorage.setItem('cardName', value)
+  const onChange =  (value) => {
     setCardVisible(false)
+    setTimeout(async  ()=>{
+      const append = await mockRequest(DATALIST[value] || data2023_8562, year, month)
+      setDataList(append)
+      setCardName(value)
+      sessionStorage.setItem('cardName', value)
+    },300)
+
   }
 
 
   const onFilter = async () => {
     window.scrollTo(0, 10)
-    const append = await mockRequest(DATALIST[cardName] || data2023_8562, year, month)
-    setDataList(append)
     setVisible(false)
-    setHasMore(true)
     setShowFloat(false)
-    localStorage.setItem('filterDate', [year, month])
+    setTimeout(async () => {
+      const append = await mockRequest(DATALIST[cardName] || data2023_8562, year, month)
+      setDataList(append)
+      setHasMore(true)
+      localStorage.setItem('filterDate', [year, month])
+    }, 300)
+
   }
 
   React.useEffect(() => {
@@ -250,11 +237,11 @@ const ListPage = () => {
             onRefresh={async () => { await sleep(10) }}
           >
             {dataList.map(item => <MonthCard {...item} setYear={setYear} setMonth={setMonth} cardName={cardName} dataItems={dataItems} />)}
-            <InfiniteScroll
+            {/* <InfiniteScroll
               loadMore={loadMore}
               hasMore={hasMore}
               renderText={(status) => { return <div>{statusRecord[status]}</div> }}
-            />
+            /> */}
 
           </PullToRefresh>
         </div>
