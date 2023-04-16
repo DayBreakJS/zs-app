@@ -8,30 +8,8 @@ import { RightOutline, InformationCircleOutline } from 'antd-mobile-icons'
 import { useNavigate } from "react-router-dom";
 import AnimatedNumber from 'react-animated-number'
 import moment from 'moment'
-import { formatRMB } from "../utils"
+import { formatRMB, typeIcon } from "../utils"
 
-const typeIcon = {
-  "退款": "退款",
-  "出行": "出行",
-  "酒店": "酒店",
-  "餐饮":'餐饮',
-  "生活日用": "生活日用",
-  "休闲娱乐": "休闲娱乐",
-  "医疗保健": "医疗保健",
-  "充值缴费": "充值缴费",
-  "现金": "现金",
-  "转账给他人": '转账给他人',
-  "转账给自己": '转账给他人',
-  "红包": "红包",
-  "房租房贷": "房租房贷",
-  "文体教育": "文体教育",
-  "手续费": '手续费',
-  "公益": "公益",
-  "保险": "保险",
-  "还款": "还款",
-  "外汇": '外汇',
-  "其他支出": "其他支出",
-}
 
 const MonthCard = (props) => {
   const { year, month, income, expend, list, setYear, setMonth, cardName, dataItems } = props
@@ -53,7 +31,8 @@ const MonthCard = (props) => {
   const CardDayItem = () => {
     return Object.keys(dayList).map(date => {
       const _date = date.split('/')
-      const dm = _date[1] + '.' + _date[2]
+      const dm = _date[1]?.replace(/^0/, '') + '.' + _date[2]
+
       return (
         <>
           <Tag color='#F9F9F9'
@@ -76,14 +55,15 @@ const MonthCard = (props) => {
                   money = `-${formatRMB(item?.amount * -1, item['币种符号'])}`
                 }
               }
+              const dataTime = moment(item?.date, 'YYYY/MM/DD HH:mm:ss').format('HH:mm').slice(0, 5)
               // const money = item?.amount > 0 ? `+${formatRMB(item?.amount, item['币种符号'])}` : `-${formatRMB(item?.amount * -1, item['币种符号'])}`
               return (
                 <div
                   // style={{ background: item['__EMPTY'] == '重点条目' ? 'red' : '' }}
                   onClick={() => {
-                  // history.push('/some-other-page')
-                  // window.history.push(`/detail?id=${item.date}`)
-                  navigate(`/detail?id=${item.date}&cardName=${cardName}`)
+                    setTimeout(() => {
+                      navigate(`/detail?id=${item.date}&cardName=${cardName}`)
+                    }, 100);
                 }}>
                   <div
                     // id={`MonthCard-img-div${ymds[0]}-${ymds[1]}`}
@@ -96,7 +76,7 @@ const MonthCard = (props) => {
                         {item?.abstract}
                       </span>
                     </Space>
-                    <Space style={{ fontSize: '1rem', fontWeight: '500', color: item['不计入']?'#919191':'',marginTop:'7px'}}>
+                    <Space style={{ fontSize: '1rem', fontWeight: '500', color: item['不计入']?'#919191':'',marginTop:'8px'}}>
                       {item['不计入'] && <Tag style={{ borderRadius: '10px' }} color='#F79231' fill='outline' >不计入</Tag>}
                       {money}
                     </Space>
@@ -105,15 +85,16 @@ const MonthCard = (props) => {
                   <div className='MonthCard-item-balance'>
                     <span >
                       {cardName == '全部账户' && ((item?.card || item['时间前卡号']) ? item?.card || item['时间前卡号'] : '储蓄卡0877')}
-                      &nbsp;{moment(item?.date, 'HH:mm:ss').format('HH:mm').slice(0, 5)}
+                      {cardName == '全部账户' && (<>&nbsp;</>)}
+                      {dataTime}
                     </span>
                     {
-                      item?.balance && <span className="MonthCard-item-balance-b">
+                      item?.balance ? <span className="MonthCard-item-balance-b">
                         余额:&nbsp;
                         {/* {formatRMB(item?.balance, item['币种符号'])} */}
                         {/* {item['币种符号'] == '欧' && item?.balance>0?'+ ':'- '} */}
                         {item['币种符号'] == '欧' ? ' € ' + item?.balance : formatRMB(item?.balance, item['币种符号'])}
-                      </span>
+                      </span>:null
                     }
                     
                   </div>
@@ -171,7 +152,7 @@ const MonthCard = (props) => {
             <Space align="center">支出&nbsp;<span style={{ fontWeight: 500, fontSize: '1rem' }}>
               {/* {formatRMB(expend)} */}
               ￥
-              {_.isNumber(expend) && (<AnimatedNumber component="text" value={_.isNumber(expend) ? expend : 0}
+              {_.isNumber(expend) && (<AnimatedNumber component="text" value={_.isNumber(expend) ? expend.toFixed(2) : 0}
                 style={{
                   transition: '0.8s ease-out',
                   transitionProperty: 'background-color, color, opacity'
@@ -189,7 +170,7 @@ const MonthCard = (props) => {
             <Space align="center">收入&nbsp;<span style={{ fontWeight: 500, fontSize: '1rem' }}>
               {/* {formatRMB(income)} {curMonth && <InformationCircleOutline />} */}
               ￥
-              {_.isNumber(income) && (<AnimatedNumber component="text" value={_.isNumber(income) ? income : 0}
+              {_.isNumber(income) && (<AnimatedNumber component="text" value={_.isNumber(income) ? income.toFixed(2) : 0}
                 style={{
                   transition: '0.8s ease-out',
                   transitionProperty: 'background-color, color, opacity'

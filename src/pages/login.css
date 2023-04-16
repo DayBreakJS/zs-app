@@ -49,9 +49,9 @@
   border: none;
 }
 
-.adm-input-element {
+/* .adm-input-element {
   font-size: 1.4rem;
-}
+} */
 
 .adm-number-keyboard-key {
   border: solid 3px #212121;
@@ -61,6 +61,12 @@
   font-size: 2.2rem;
   line-height: 1;
   min-height: 1.5em;
+  font-family: Arial
+}
+
+input[type="password"] {
+  -webkit-text-security: disc;
+  /* 设置圆点大小为大 */
 }
 
 .Login input::placeholder {

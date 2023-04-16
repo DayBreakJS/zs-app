@@ -2,9 +2,15 @@ import { sleep } from 'antd-mobile/es/utils/sleep'
 import converData from './converData';
 // import data from './billdata.json'
 
+import d2023_8562 from './data/2023-8562.json'
+
+
 import testConverData from './testConverData';
 import testData from './testData.json'
 
+console.log(
+  converData(testConverData(testData))
+)
 
 let count = 0
 let start = 0

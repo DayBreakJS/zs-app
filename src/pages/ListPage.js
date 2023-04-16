@@ -57,10 +57,12 @@ const ListPage = () => {
   } else if (cardName == '一卡通(0877)') {
     _data = data0877
   } else if (cardName == '一卡通(8562)') {
-    _data = data8562
-  } else {
-    _data = data2023_8562
-  }
+    if (year == '2023') {
+      _data = data2023_8562
+    } else {
+      _data = data8562
+    }
+  } 
 
   const [dataItems, setDataItems] = React.useState(_data)
 
