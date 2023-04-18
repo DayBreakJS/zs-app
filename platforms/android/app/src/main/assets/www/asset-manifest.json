@@ -1,8 +1,9 @@
 {
   "files": {
-    "main.css": "./static/css/main.84e046f0.css",
-    "main.js": "./static/js/main.d60ce60b.js",
+    "main.css": "./static/css/main.cf25a690.css",
+    "main.js": "./static/js/main.f52f9573.js",
     "static/js/787.b9bfd242.chunk.js": "./static/js/787.b9bfd242.chunk.js",
+    "static/media/SourceHanSerifCN-Light-5.otf": "./static/media/SourceHanSerifCN-Light-5.949c73828e25eb2efe25.otf",
     "static/media/b1.png": "./static/media/b1.e8b2a8c41339cd70b316.png",
     "static/media/b2.png": "./static/media/b2.1b50f90c5a6628d32768.png",
     "static/media/b3.png": "./static/media/b3.a106439a8e74a016dcbb.png",
@@ -21,10 +22,12 @@
     "static/media/m10.png": "./static/media/m10.de52942382c5baebb2a8.png",
     "static/media/m1.png": "./static/media/m1.356e0f29f521e5e53393.png",
     "static/media/wx.png": "./static/media/wx.11a0af92c7cce785478f.png",
+    "static/media/GaramondMT.otf": "./static/media/GaramondMT.1a517e268d8b65b7da2e.otf",
     "static/media/m3.png": "./static/media/m3.0f95d147437ac0ef8c73.png",
     "static/media/m11.png": "./static/media/m11.567ad2274f57b311dbda.png",
     "static/media/p1b.png": "./static/media/p1b.b15e5c1398a8511c9734.png",
     "static/media/m7.png": "./static/media/m7.b6891550cd51b83e5185.png",
+    "static/media/DIN.otf": "./static/media/DIN.36260ab38e048fd8c1c1.otf",
     "static/media/m12.png": "./static/media/m12.316027b9fc1e74f84ee6.png",
     "static/media/m5.png": "./static/media/m5.afa55a5ac473b5748a1b.png",
     "static/media/card.png": "./static/media/card.3768e11bd585be9f526a.png",
@@ -38,6 +41,7 @@
     "static/media/m4.png": "./static/media/m4.bde61f12482eb60e96c1.png",
     "static/media/m2.png": "./static/media/m2.c69a6379d34500974e98.png",
     "static/media/$.png": "./static/media/$.aa58a3fa7cd8e09acfc1.png",
+    "static/media/rt.png": "./static/media/rt.f216f00b95635cb913ae.png",
     "static/media/4.png": "./static/media/4.42e778f12177bfb3c8e3.png",
     "static/media/bz.png": "./static/media/bz.7e673e5daefe1b1a5a10.png",
     "static/media/2.png": "./static/media/2.3fbeb1962bb8d27c5404.png",
@@ -63,12 +67,12 @@
     "static/media/1.png": "./static/media/1.3003f7b4a569e059f4c3.png",
     "static/media/红包.png": "./static/media/红包.d8772ff01061361a9997.png",
     "index.html": "./index.html",
-    "main.84e046f0.css.map": "./static/css/main.84e046f0.css.map",
-    "main.d60ce60b.js.map": "./static/js/main.d60ce60b.js.map",
+    "main.cf25a690.css.map": "./static/css/main.cf25a690.css.map",
+    "main.f52f9573.js.map": "./static/js/main.f52f9573.js.map",
     "787.b9bfd242.chunk.js.map": "./static/js/787.b9bfd242.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.84e046f0.css",
-    "static/js/main.d60ce60b.js"
+    "static/css/main.cf25a690.css",
+    "static/js/main.f52f9573.js"
   ]
 }

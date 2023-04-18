@@ -72,6 +72,7 @@ const ListPage = () => {
   const [dataColumns, setDataColumns] = React.useState(_dataColumns)
   const [floatData, setFloatData] = React.useState(null)
   const [showFloat, setShowFloat] = React.useState(false)
+  const [{ py, pm }, setPym] = React.useState({py:'',pm:''})
 
 
   React.useEffect(() => {
@@ -79,6 +80,7 @@ const ListPage = () => {
     if (window?.StatusBar) {
       setTimeout(() => {
         window?.StatusBar.backgroundColorByHexString("#F7F7F7");
+        window?.StatusBar.styleDefault()
       }, 10)
     }
   }, [])
@@ -111,6 +113,7 @@ const ListPage = () => {
   const back = () => {
     navigate('/home')
     localStorage.setItem('filterDate', null)
+    window?.StatusBar?.styleLightContent();
     window.scrollTo(0, 10)
   }
 
@@ -123,6 +126,7 @@ const ListPage = () => {
   const pvChange = (val, extend) => {
     setYear(val[0])
     setMonth(val[1])
+    // setPym({ py: val[0], pm: val[1] })
     if (val && val[0] != '2023') {
       _dataColumns[1] = Array.from({ length: 12 }, (v, k) => k + 1).map(i => (
         { label: `${i}`, value: `${i < 10 ? '0' + i : i}` }
@@ -149,6 +153,7 @@ const ListPage = () => {
     setCardVisible(false)
     setTimeout(async  ()=>{
       const append = await mockRequest(DATALIST[value] || data2023_8562, year, month)
+     
       setDataList(append)
       setCardName(value)
       sessionStorage.setItem('cardName', value)
@@ -161,10 +166,13 @@ const ListPage = () => {
     window.scrollTo(0, 10)
     setVisible(false)
     setShowFloat(false)
+    // setPym({py,pm})
     setTimeout(async () => {
       const append = await mockRequest(DATALIST[cardName] || data2023_8562, year, month)
       setDataList(append)
       setHasMore(true)
+      setYear(year)
+      setMonth(month)
       localStorage.setItem('filterDate', [year, month])
     }, 300)
 
@@ -244,7 +252,6 @@ const ListPage = () => {
               hasMore={hasMore}
               renderText={(status) => { return <div>{statusRecord[status]}</div> }}
             /> */}
-
           </PullToRefresh>
         </div>
       </div>

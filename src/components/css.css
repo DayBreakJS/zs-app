@@ -1,3 +1,4 @@
+
 .MonthCard {
   min-height: 22vh;
   width: 90vw;
@@ -34,7 +35,7 @@
 
 .MonthCard-img-text {
   position: absolute;
-  top: -1.8rem;
+  top: -1rem;
   left: 1rem;
 }
 
@@ -45,16 +46,18 @@
 
 .MonthCard-img-box-month {
   font-size: 4rem;
-  font-family: "SimSun", sans-serif;
-  font-weight: 400;
+  font-family: 'MyFont',sans-serif;
+  font-weight: 300;
   letter-spacing: -0.5px;
   font-stretch: condensed;
 }
 
 .MonthCard-img-box-unit {
-  font-size: 1.5rem;
-  font-family: serif
+  font-size: 1.4rem;
+  font-weight: 100;
+  font-family: 'Shong', sans-serif;
 }
+
 
 .MonthCard-img-box-money {
   position: absolute;
@@ -62,7 +65,12 @@
   left: 1rem;
   width: 82vw;
   display: flex;
-  justify-content: space-between
+  justify-content: space-between;
+  font-family: 'DIN', sans-serif;
+  /* font-weight: 1000; */
+}
+.MonthCard-money{
+  font-family: 'DIN', sans-serif;
 }
 
 .MonthCard-img-box-money .adm-space-item {

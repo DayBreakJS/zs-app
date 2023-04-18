@@ -2,7 +2,7 @@
 
 import React from 'react'
 import moment from 'moment'
-import { Space, Input, NavBar, Avatar, Button ,NumberKeyboard } from 'antd-mobile'
+import { Space, Input, NavBar, Button ,NumberKeyboard } from 'antd-mobile'
 import { useNavigate } from "react-router-dom";
 import './login.css'
 
@@ -35,13 +35,15 @@ const Login = () => {
     if (window?.StatusBar) {
       setTimeout(() => {
         window?.StatusBar.backgroundColorByHexString("#FFF");
-        window?.StatusBar?.styleBlackOpaque();
+        window?.StatusBar.styleDefault()
       }, 10)
     }
   },[])
 
   const back = () => {
     navigate('/home')
+    window?.StatusBar?.styleLightContent();
+
   }
 
   const actions = {
@@ -49,10 +51,10 @@ const Login = () => {
       setVisible('')
     },
     onInput: (key) => {
-      setStr((s)=>s+key)
+      setStr((s) => s ? s + 'ꔷ ' :'ꔷ ')
     },
     onDelete: () => {
-      setStr((s) => s.substring(0,s.length-1))
+      setStr((s) => s.substring(0,s.length-2))
 
     },
   }
@@ -61,18 +63,27 @@ const Login = () => {
     <div className='Login'>
       <NavBar className='listPage-NavBar' right={right} onBack={back}>
       </NavBar>
-      <Avatar src='' style={{ '--size': '80px', borderRadius: '50%', margin: '0 auto', marginTop: '2.5rem',marginBottom:'1.4rem' }} />
-      <span style={{ fontSize: '1.7rem' }}>159*****835，{dateText}</span>
+      <img src={require('./../img/rt.png')}
+        style={{
+          width:'30vw',
+          borderRadius: '50%',display:'block',
+          margin: '0 auto', marginTop: '2.5rem', marginBottom: '1.4rem'
+        }}
+      />
+      <span style={{ fontSize: '1.7rem',textAlign:'center' }}>159*****835 {dateText}</span>
       <div onClick={() => setVisible(true)}>
 
-        <Input placeholder='请输入登录密码'  clearable value={str} type="password"
+        <Input
+          placeholder='输入登录密码'
+          clearable
+          value={str}
           onClear={() => setStr('')}
           onFocus={() => {
             // 屏蔽默认键盘弹出
             document.activeElement.blur();
             // TODO ...
           }} 
-        style={{ width: '89vw',margin:'0 auto', borderBottom: '1px solid #ccc', padding: '0.1rem 0',marginTop:'1.2rem' }}
+          style={{ '--font-size': '2.2rem',width: '89vw',margin:'0 auto', borderBottom: '1px solid #ccc', padding: '0.1rem 0',marginTop:'1.2rem' }}
         />
       </div>
 

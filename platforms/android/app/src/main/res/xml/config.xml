@@ -5,19 +5,19 @@
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
 
-  <platform name="android">
-    <icon src="resources/android/icon.png" />
-</platform>
+    <platform name="android">
+        <icon src="resources/android/icon.png" />
+    </platform>
 
     <preference name="AutoHideSplashScreen" value="true" />
     <preference name="SplashScreenDelay" value="0"/>
-<preference name="AutoHideSplashScreen" value="false" />
- <preference name="FadeSplashScreen" value="false"/>
+    <preference name="AutoHideSplashScreen" value="false" />
     <preference name="FadeSplashScreen" value="false" />
     <preference name="StatusBarOverlaysWebView" value="true" />
     <preference name="StatusBarStyle" value="lightContent" />
     <preference name="Fullscreen" value="false" />
     <preference name="StatusBarBackgroundColor" value="#1890ff" />
+    
     <feature name="StatusBar">
         <param name="android-package" value="org.apache.cordova.statusbar.StatusBar" />
         <param name="onload" value="true" />

@@ -36,7 +36,7 @@ const MonthCard = (props) => {
       return (
         <>
           <Tag color='#F9F9F9'
-            style={{ color: '#000', padding: ' 0.2rem 0.5rem', margin: '0.4rem 0 0.3rem 0.5rem' }}>
+            style={{ fontSize:'0.8rem', color: '#000', padding: ' 0.2rem 0.5rem', margin: '0.4rem 0 0.3rem 0.5rem' }}>
             {dm}
           </Tag>
           {
@@ -72,11 +72,11 @@ const MonthCard = (props) => {
                       <img src={require(`./../img/typeIcon/${typeIcon[item?.icon] || '现金'}.png`)}
                         style={{ width: '1.8rem', position: "relative", top: '2px', left: '-5px' }}
                       />
-                      <span style={{ fontSize: '1rem', fontWeight: '400', marginLeft: '-10px' }}>
+                      <span  style={{ fontSize: '0.95rem', fontWeight: '400', marginLeft: '-10px' }}>
                         {item?.abstract}
                       </span>
                     </Space>
-                    <Space style={{ fontSize: '1rem', fontWeight: '500', color: item['不计入']?'#919191':'',marginTop:'8px'}}>
+                    <Space className='MonthCard-money'  style={{ fontSize: '1rem', fontWeight: '500', color: item['不计入']?'#919191':'',marginTop:'8px'}}>
                       {item['不计入'] && <Tag style={{ borderRadius: '10px' }} color='#F79231' fill='outline' >不计入</Tag>}
                       {money}
                     </Space>

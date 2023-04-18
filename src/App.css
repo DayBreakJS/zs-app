@@ -1,8 +1,55 @@
+@font-face {
+  font-family: 'DIN';
+  src: url('./font/DIN.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'MyFont';
+  src: url('./font/GaramondMT.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Shong';
+  src: url('./font/SourceHanSerifCN-Light-5.otf') format('opentype');
+}
+
+/* 修改字体名称 */
+body {
+}
+
+* {
+  -moz-user-select: none;
+  /* Firefox私有属性 */
+  -webkit-user-select: none;
+  /* WebKit内核私有属性 */
+  -ms-user-select: none;
+  /* IE私有属性(IE10及以后) */
+  -khtml-user-select: none;
+  /* Khtml内核私有属性 */
+  -o-user-select: none;
+  /* Opera私有属性 */
+  user-select: none;
+  /* CSS3属性 */
+  /* font-family: 'DIN', sans-serif; */
+}
+
 body {
   /* padding-top: 40px; */
   color: #000;
   margin-bottom: -100px !important;
-  padding-bottom: -100px !important
+  padding-bottom: -100px !important;
+  -moz-user-select: none;
+  /* Firefox私有属性 */
+  -webkit-user-select: none;
+  /* WebKit内核私有属性 */
+  -ms-user-select: none;
+  /* IE私有属性(IE10及以后) */
+  -khtml-user-select: none;
+  /* Khtml内核私有属性 */
+  -o-user-select: none;
+  /* Opera私有属性 */
+  user-select: none;
+  /* CSS3属性 */
 }
 
 :root:root {
@@ -221,6 +268,7 @@ body {
   height: 600px;
   /* 设置高度为 300px */
 }
-.adm-badge-content{
-padding: 2px 5px !important;
+
+.adm-badge-content {
+  padding: 2px 5px !important;
 }

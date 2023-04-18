@@ -107,6 +107,7 @@ const Detail = (props) => {
     if (window?.StatusBar) {
       setTimeout(() => {
         window?.StatusBar.backgroundColorByHexString("#F8F8F8");
+        window?.StatusBar.styleDefault()
       }, 10)
 
     }
@@ -154,10 +155,10 @@ const Detail = (props) => {
               </div>
               <div style={{ textAlign: 'center', width: '100%' }}>
                 <Space align="center">
-                  <span style={{ fontSize: '2rem', color: '#000', lineHeight: '4rem', }}>
+                  <span className='Detail-money' style={{ fontSize: '2rem', color: '#000', lineHeight: '4rem', }}>
                     {money.replace('¥', '¥ ')}
                   </span>
-                  <QuestionCircleOutline style={{ fontSize: '1.4rem', color: '#ccc', marginRight: '-1rem' }} />
+                  <QuestionCircleOutline style={{ fontSize: '1.1rem', color: '#ccc', marginRight: '-1rem' }} />
                 </Space>
               </div>
               <p style={{ textAlign: 'center', fontSize: '1rem', color: '#808080', marginTop: '-0.01rem', }}>
@@ -165,11 +166,11 @@ const Detail = (props) => {
                 {curItem?.date?.indexOf('12:54:53') != -1 ?'余额€0.00':null}
               </p>
               {/* <div style={{ width: '84.5vw', margin: '1.5rem auto', marginTop: '2rem' }}>
-          <span style={{ fontSize: "1rem", color: '#808080' }}>交易卡号</span>
-          <span style={{ fontSize: "1rem", float: 'right' }}>
-            {card[cardName] ? card[cardName] : curItem['__EMPTY_1']|| '4682********0877'}
-          </span>
-        </div> */}
+                    <span style={{ fontSize: "1rem", color: '#808080' }}>交易卡号</span>
+                    <span style={{ fontSize: "1rem", float: 'right' }}>
+                      {card[cardName] ? card[cardName] : curItem['__EMPTY_1']|| '4682********0877'}
+                    </span>
+                  </div> */}
 
               {
                 cardNum && (
@@ -185,6 +186,22 @@ const Detail = (props) => {
                 <span style={{ fontSize: "1rem", color: '#808080' }}>交易时间</span>
                 <span style={{ fontSize: "1rem", float: 'right' }}>{date}</span>
               </div>
+              {
+                (curItem['__EMPTY_2'] || curItem['收款银行'] != '无' && curItem['收款银行']) && (
+                  <div style={{ width: '84.5vw', margin: '1.5rem auto' }}>
+                    <span style={{ fontSize: "1rem", color: '#808080' }}>收款银行</span>
+                    <span style={{ fontSize: "1rem", float: 'right' }}>{curItem['__EMPTY_2'] || curItem['收款银行']}</span>
+                  </div>
+                )
+              }
+              {
+                curItem['__EMPTY_3'] && (
+                  <div style={{ width: '84.5vw', margin: '1.5rem auto' }}>
+                    <span style={{ fontSize: "1rem", color: '#808080' }}>收款账号</span>
+                    <span style={{ fontSize: "1rem", float: 'right' }}>{curItem['__EMPTY_3']}</span>
+                  </div>
+                )
+              }
               {
                 curItem['付款银行'] && (
                   <div style={{ width: '84.5vw', margin: '1.5rem auto' }}>
@@ -242,22 +259,8 @@ const Detail = (props) => {
                   </div>
                 )
               }
-              {
-                (curItem['__EMPTY_2'] || curItem['收款银行'] != '无' && curItem['收款银行']) && (
-                  <div style={{ width: '84.5vw', margin: '1.5rem auto' }}>
-                    <span style={{ fontSize: "1rem", color: '#808080' }}>收款银行</span>
-                    <span style={{ fontSize: "1rem", float: 'right' }}>{curItem['__EMPTY_2'] || curItem['收款银行']}</span>
-                  </div>
-                )
-              }
-              {
-                curItem['__EMPTY_3'] && (
-                  <div style={{ width: '84.5vw', margin: '1.5rem auto' }}>
-                    <span style={{ fontSize: "1rem", color: '#808080' }}>收款账号</span>
-                    <span style={{ fontSize: "1rem", float: 'right' }}>{curItem['__EMPTY_3']}</span>
-                  </div>
-                )
-              }
+           
+          
 
               <div style={{ width: '84.5vw', margin: '1.5rem auto' }}>
                 <span style={{ fontSize: "1rem", color: '#808080' }}>银行交易类型</span>
@@ -272,7 +275,7 @@ const Detail = (props) => {
                     <img src={require(`./../img/typeIcon/${typeIcon[curItem?.icon] || '现金'}.png`)}
                       style={{ width: '1.6rem', position: "relative", top: '2px' }} />
                     <span>{curItem?.icon}</span>
-                    <RightOutline style={{ color: '#808080' }} />
+                    {cardName ? <img src={require('./../img/info.png')} style={{ width: '1.3rem' }} /> : <RightOutline style={{ color: '#808080' }} /> }
                   </Space>
                 </span>
               </div>
@@ -299,7 +302,7 @@ const Detail = (props) => {
               </div>
               <div style={{ width: '84.5vw', margin: '0 auto', marginTop: '1.7rem' }}>
                 <span style={{ fontSize: "1rem", color: '#808080' }}>备注</span>
-                <img style={{ width: '100%', paddingTop: '0.6rem' }} src={require('./../img/bz.png')} />
+                <img style={{ width: '100%', paddingTop: '1rem' }} src={require('./../img/bz.png')} />
 
               </div>
             </div>

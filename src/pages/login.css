@@ -57,6 +57,12 @@
   border: solid 3px #212121;
 }
 
+/* .Login .adm-input-element {
+  -webkit-font-size: 2.2rem;
+  -moz-font-size: 2.2rem;
+  line-height: 1;
+  min-height: 1.5em;
+} */
 .Login .adm-input-element {
   font-size: 2.2rem;
   line-height: 1;
