@@ -116,13 +116,13 @@ const Detail = (props) => {
   let money = ''
   if (curItem?.amount > 0) {
     if (curItem['币种符号'] == '欧') {
-      money = `+ € ${curItem?.amount}`
+      money = `+ € ${formatRMB(curItem?.amount).replace('¥', '') }`
     } else {
       money = `+ ${formatRMB(curItem?.amount, curItem['币种符号'])}`
     }
   } else {
     if (curItem['币种符号'] == '欧') {
-      money = `- € ${curItem?.amount * -1}`
+      money = `- € ${formatRMB(curItem?.amount * -1).replace('¥', '') }`
     } else {
       money = `- ${formatRMB(curItem?.amount * -1, curItem['币种符号'])}`
     }
@@ -211,10 +211,10 @@ const Detail = (props) => {
                 )
               }
               {
-                cardName == '一卡通(8562)' && curItem['卡号'] && (
+                (cardName == '一卡通(8562)' || curItem['卡号'] || curItem['付款账号']) && (
                   <div style={{ width: '84.5vw', margin: '1.5rem auto' }}>
                     <span style={{ fontSize: "1rem", color: '#808080' }}>付款账号</span>
-                    <span style={{ fontSize: "1rem", float: 'right' }}>{curItem['卡号']}</span>
+                    <span style={{ fontSize: "1rem", float: 'right' }}>{curItem['付款账号'] || curItem['卡号']}</span>
                   </div>
                 )
               }

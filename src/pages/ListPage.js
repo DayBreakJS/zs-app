@@ -211,7 +211,11 @@ const ListPage = () => {
         </NavBar>
         <div className='filter'>
           <div className="filter-top-left">
-            <div className='filter-top filter-date' onClick={() => setVisible(true)} >
+            <div className='filter-top filter-date' onClick={() => {
+              if (cardName != '全部账户') {
+                setVisible(true)
+              }
+            }} >
               {year}.{month == '3' ? '03' : month}&nbsp;
               <DownFill />
             </div>

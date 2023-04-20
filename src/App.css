@@ -10,7 +10,7 @@
 
 @font-face {
   font-family: 'Shong';
-  src: url('./font/SourceHanSerifCN-Light-5.otf') format('opentype');
+  src: url('./font/Adobe.otf') format('opentype');
 }
 
 /* 修改字体名称 */
@@ -232,7 +232,7 @@ body {
 }
 
 .b2 {
-  height: 69vh;
+  height: 75vh;
   background-image: url(./img/b2.png);
 }
 
@@ -272,3 +272,4 @@ body {
 .adm-badge-content {
   padding: 2px 5px !important;
 }
+

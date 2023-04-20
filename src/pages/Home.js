@@ -3,7 +3,7 @@
 import React from 'react'
 import { Badge, TabBar } from 'antd-mobile'
 import { useNavigate } from "react-router-dom";
-import { HomeSwiper, MessageSwiper } from '../components/HomeSwiper'
+import { HomeSwiper, MessageSwiper, HomeTopSwiper } from '../components/HomeSwiper'
 // import createHistory from 'history/createBrowserHistory'
 // const history = createHistory();
 const Home = () => {
@@ -60,6 +60,7 @@ const Home = () => {
             {/* anchor point */}
           </div>
         </div>
+        <HomeTopSwiper/>
         <MessageSwiper/>
         <HomeSwiper />
         <div className='back b2'> </div>

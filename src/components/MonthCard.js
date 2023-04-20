@@ -7,16 +7,30 @@ import _ from 'lodash'
 import { RightOutline, InformationCircleOutline } from 'antd-mobile-icons'
 import { useNavigate } from "react-router-dom";
 import AnimatedNumber from 'react-animated-number'
+import CountUp from 'react-countup'
 import moment from 'moment'
 import { formatRMB, typeIcon } from "../utils"
-
+import Loading from './Loading'
 
 const MonthCard = (props) => {
   const { year, month, income, expend, list, setYear, setMonth, cardName, dataItems } = props
+  const [loading, setLoading] = React.useState(false)
+  const curMonth = year === "2023" && month === '04'
+
   const navigate = useNavigate()
 
+  React.useEffect(() => {
+    if (curMonth) {
+      setLoading(true)
+      setTimeout(() => {
+        setLoading(false)
+
+      }, 500);
+    }
+  }, [])
+
   // console.log(cardName, list, '---list')
- 
+
   let dayList = list?.reduce((prve, cur) => {
     prve[cur?.ymd] = [...prve[cur?.ymd] || [], cur]
     return prve
@@ -36,21 +50,21 @@ const MonthCard = (props) => {
       return (
         <>
           <Tag color='#F9F9F9'
-            style={{ fontSize:'0.8rem', color: '#000', padding: ' 0.2rem 0.5rem', margin: '0.4rem 0 0.3rem 0.5rem' }}>
+            style={{ fontSize: '0.8rem', color: '#000', padding: ' 0.2rem 0.5rem', margin: '0.4rem 0 0.3rem 0.5rem' }}>
             {dm}
           </Tag>
           {
             dayList[date]?.map(item => {
               let money = ''
               if (item?.amount > 0) {
-                if (item['币种符号']=='欧') {
-                  money = `+€ ${item?.amount}`
+                if (item['币种符号'] == '欧') {
+                  money = `+€ ${formatRMB(item?.amount).replace('¥', '')}`
                 } else {
                   money = `+${formatRMB(item?.amount, item['币种符号'])}`
                 }
               } else {
                 if (item['币种符号'] == '欧') {
-                  money = `-€ ${item?.amount * -1}`
+                  money = `-€ ${formatRMB(item?.amount * -1).replace('¥', '')}`
                 } else {
                   money = `-${formatRMB(item?.amount * -1, item['币种符号'])}`
                 }
@@ -64,7 +78,7 @@ const MonthCard = (props) => {
                     setTimeout(() => {
                       navigate(`/detail?id=${item.date}&cardName=${cardName}`)
                     }, 100);
-                }}>
+                  }}>
                   <div
                     // id={`MonthCard-img-div${ymds[0]}-${ymds[1]}`}
                     style={{ width: '82vw', display: 'flex', justifyContent: 'space-between', margin: '0.5rem auto' }}>
@@ -72,11 +86,11 @@ const MonthCard = (props) => {
                       <img src={require(`./../img/typeIcon/${typeIcon[item?.icon] || '现金'}.png`)}
                         style={{ width: '1.8rem', position: "relative", top: '2px', left: '-5px' }}
                       />
-                      <span  style={{ fontSize: '0.95rem', fontWeight: '400', marginLeft: '-10px' }}>
+                      <span style={{ fontSize: '0.95rem', fontWeight: '400', marginLeft: '-10px' }}>
                         {item?.abstract}
                       </span>
                     </Space>
-                    <Space className='MonthCard-money'  style={{ fontSize: '1rem', fontWeight: '500', color: item['不计入']?'#919191':'',marginTop:'8px'}}>
+                    <Space className='MonthCard-money' style={{ fontSize: '1rem', fontWeight: '500', color: item['不计入'] ? '#919191' : '', marginTop: '8px' }}>
                       {item['不计入'] && <Tag style={{ borderRadius: '10px' }} color='#F79231' fill='outline' >不计入</Tag>}
                       {money}
                     </Space>
@@ -94,9 +108,9 @@ const MonthCard = (props) => {
                         {/* {formatRMB(item?.balance, item['币种符号'])} */}
                         {/* {item['币种符号'] == '欧' && item?.balance>0?'+ ':'- '} */}
                         {item['币种符号'] == '欧' ? ' € ' + item?.balance : formatRMB(item?.balance, item['币种符号'])}
-                      </span>:null
+                      </span> : null
                     }
-                    
+
                   </div>
                 </div>
               )
@@ -115,11 +129,11 @@ const MonthCard = (props) => {
     if (curDom?.top <= 111 && curDom?.top >= 0) {
       setYear(year)
       setMonth(month)
-    } 
+    }
     if (curDom?.top <= 0 && curDom.bottom <= window.innerHeight) {
       setYear(year)
       setMonth(month)
-    } 
+    }
 
   };
 
@@ -130,10 +144,9 @@ const MonthCard = (props) => {
     };
   }, [handleScroll]);
 
-  const curMonth = year === "2023" && month === '04'
-  const curMonthStyle = { height: '17vh',paddingBottom:'1rem' }
+  const curMonthStyle = { height: '17vh', paddingBottom: '1rem' }
 
-  return React.useMemo(()=>(
+  return React.useMemo(() => (
     <div className='MonthCard'  >
       <div className='MonthCard-img' style={curMonth ? curMonthStyle : {}}>
         <img src={require(`./../img/m${month.replace(/\b(0+)/gi, "")}.png`)} style={curMonth ? curMonthStyle : {}} />
@@ -150,46 +163,26 @@ const MonthCard = (props) => {
           </Space>
           <Space className='MonthCard-img-box-money'>
             <Space align="center">支出&nbsp;<span style={{ fontWeight: 500, fontSize: '1rem' }}>
-              {/* {formatRMB(expend)} */}
-              ￥
-              {_.isNumber(expend) && (<AnimatedNumber component="text" value={_.isNumber(expend) ? expend.toFixed(2) : 0}
-                style={{
-                  transition: '0.8s ease-out',
-                  transitionProperty: 'background-color, color, opacity'
-                }}
-                frameStyle={perc => (perc === 100 ? {} : { opacity: 1 })}
-                stepPrecision={0}
-                duration={400}
-              // formatValue={(value) => value.toFixed(0)}
-              // formatValue={n => _.isNumber(expend) ? expend :0}
-
-              />)}
-              {/* {formatRMB(expend)} */}
+              { <>
+                ￥ <CountUp start={0} decimals={2} end={expend} duration={0.5} />
+              </>}
             </span>
             </Space>
             <Space align="center">收入&nbsp;<span style={{ fontWeight: 500, fontSize: '1rem' }}>
-              {/* {formatRMB(income)} {curMonth && <InformationCircleOutline />} */}
-              ￥
-              {_.isNumber(income) && (<AnimatedNumber component="text" value={_.isNumber(income) ? income.toFixed(2) : 0}
-                style={{
-                  transition: '0.8s ease-out',
-                  transitionProperty: 'background-color, color, opacity'
-                }}
-                frameStyle={perc => (perc === 100 ? {} : { opacity: 1 })}
-                stepPrecision={0}
-                duration={400}
+              {/* {formatRMB(income)} */}
+              { <>
+                ￥ <CountUp start={0} decimals={2} end={income} duration={0.5} />
+              </>}
+              {curMonth && !loading && <InformationCircleOutline style={{fontSize:'0.8rem',marginLeft:'0.4rem'}} />}
 
-              />)}
             </span>
             </Space>
           </Space>
-         { curMonth &&<div style={{fontSize:'0.8rem',position:'absolute',bottom:'2.1rem',left:'1rem'}}>设置预算 <RightOutline /></div> }
-
+          {curMonth && <div style={{ fontSize: '0.8rem', position: 'absolute', bottom: '2.1rem', left: '1rem' }}>设置预算 <RightOutline /></div>}
         </div>
       </div>
-      <div className='MonthCard-item' style={{ paddingBottom:'10px'}}>
+      <div className='MonthCard-item' style={{ paddingBottom: '10px' }}>
         <CardDayItem />
-
       </div>
       <div>
 
@@ -197,7 +190,7 @@ const MonthCard = (props) => {
 
       {/* <p style={{ textAlign: 'center', color: '#ccc', lineHeight: '30px', fontSize: '14px' }}>本月无交易</p> */}
     </div>
-  ), [year, month, cardName, dataItems])
+  ), [year, month, cardName, dataItems, loading])
 }
 
 export default MonthCard

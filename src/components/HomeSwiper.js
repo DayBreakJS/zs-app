@@ -1,11 +1,11 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
-import { Button, Space, Swiper, Toast } from 'antd-mobile'
+import { Button, Space, Swiper } from 'antd-mobile'
 import { MailFill, MoreOutline } from 'antd-mobile-icons'
 
 const HomeSwiper = () => {
   return (
-    <div style={{ width: '94vw', margin: ' 0 auto' }}>
+    <div style={{ width: '94vw', margin: ' 0 auto', marginBottom: '10px' }}>
       <Swiper autoplay loop indicator={() => null}>
         {
           Array.from({ length: 5 }, (v, k) => k + 1).map(i => {
@@ -30,9 +30,9 @@ const MessageSwiper = () => {
             return (
               <Swiper.Item key={i}>
                 <Space align='center'>
-                  <Button size='mini' style={{ background:'#F9F9F9'}}><MailFill /> 通知</Button>
-                  <p className='message'>{i}小招有财: 请留意!节前投资买TA，假期<MoreOutline /></p>
-                  </Space>
+                  <Button size='mini' style={{ background: '#F9F9F9' }}><MailFill /> 通知</Button>
+                  <p className='message'>小招有财: 请留意!节前投资买TA，假期<MoreOutline /></p>
+                </Space>
               </Swiper.Item>
             )
           })
@@ -42,4 +42,23 @@ const MessageSwiper = () => {
   )
 }
 
-export { MessageSwiper, HomeSwiper}
+const HomeTopSwiper = () => {
+  return (
+    <div style={{ width: '94vw', margin: ' 0 auto' }} className="HomeTopSwiper">
+      <Swiper direction='vertical' autoplayInterval={4000} autoplay loop indicator={() => null}>
+        <Swiper.Item >
+          <p className='message'>开户</p>
+        </Swiper.Item>
+        <Swiper.Item >
+          <p className='message'>自由人生</p>
+        </Swiper.Item>
+        <Swiper.Item >
+          <p className='message'>朝阳盈2号</p>
+        </Swiper.Item>
+      </Swiper>
+    </div>
+  )
+}
+
+
+export { MessageSwiper, HomeSwiper, HomeTopSwiper }

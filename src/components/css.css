@@ -152,3 +152,14 @@
   border: none;
   border-radius: 12px;
 }
+
+.HomeTopSwiper{
+  position: absolute;
+  top: 0.5rem;
+  left: 6rem;
+}
+.HomeTopSwiper  .adm-swiper-vertical {
+  height: 40px;
+  color: #eceaea;
+  font-size:0.9rem;
+}
