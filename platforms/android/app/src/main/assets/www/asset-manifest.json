@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "./static/css/main.e6abdfa3.css",
-    "main.js": "./static/js/main.87e3b2c4.js",
+    "main.css": "./static/css/main.2c3158a8.css",
+    "main.js": "./static/js/main.6cdb0e86.js",
     "static/js/787.b9bfd242.chunk.js": "./static/js/787.b9bfd242.chunk.js",
     "static/media/Adobe.otf": "./static/media/Adobe.3fdb32e6e2c2fe8338d2.otf",
     "static/media/b3.png": "./static/media/b3.a106439a8e74a016dcbb.png",
@@ -67,12 +67,12 @@
     "static/media/1.png": "./static/media/1.3003f7b4a569e059f4c3.png",
     "static/media/红包.png": "./static/media/红包.d8772ff01061361a9997.png",
     "index.html": "./index.html",
-    "main.e6abdfa3.css.map": "./static/css/main.e6abdfa3.css.map",
-    "main.87e3b2c4.js.map": "./static/js/main.87e3b2c4.js.map",
+    "main.2c3158a8.css.map": "./static/css/main.2c3158a8.css.map",
+    "main.6cdb0e86.js.map": "./static/js/main.6cdb0e86.js.map",
     "787.b9bfd242.chunk.js.map": "./static/js/787.b9bfd242.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e6abdfa3.css",
-    "static/js/main.87e3b2c4.js"
+    "static/css/main.2c3158a8.css",
+    "static/js/main.6cdb0e86.js"
   ]
 }

@@ -44,7 +44,7 @@ const MessageSwiper = () => {
 
 const HomeTopSwiper = () => {
   return (
-    <div style={{ width: '94vw', margin: ' 0 auto' }} className="HomeTopSwiper">
+    <div style={{ width: '34vw', margin: ' 0 auto' }} className="HomeTopSwiper">
       <Swiper direction='vertical' autoplayInterval={4000} autoplay loop indicator={() => null}>
         <Swiper.Item >
           <p className='message'>开户</p>

@@ -26,6 +26,7 @@ const icons = {
   '许宝丹': 'tx',
   '史新华': 'tx',
   '李辉美': 'tx',
+  '邓鲁民':'tx',
   '孙茜': 'tx',
   '结息': 'wx',
   '汇款接单（零售汇款接单）': 'wx',
@@ -70,7 +71,7 @@ const Detail = (props) => {
   } else if (cardName == '一卡通(8562)') {
     cardNum = '6214********8562'
   } else {
-    cardNum = curItem['__EMPTY_1']
+    cardNum = curItem['__EMPTY_1'] || '全部账户'
   }
 
   // console.log(cardName, '--cardName')
@@ -211,10 +212,19 @@ const Detail = (props) => {
                 )
               }
               {
-                (cardName == '一卡通(8562)' || curItem['卡号'] || curItem['付款账号']) && (
+                (cardName == '一卡通(8562)' && curItem['卡号'] ) && (
+                  <div style={{ width: '84.5vw', margin: '1.5rem auto' }}>
+                    <span style={{ fontSize: "1rem", color: '#808080' }}>收款账号</span>
+                    <span style={{ fontSize: "1rem", float: 'right' }}>{ curItem['卡号']}</span>
+                  </div>
+                )
+              }
+
+              {
+                (cardName == '一卡通(8562)' &&  curItem['付款账号']) && (
                   <div style={{ width: '84.5vw', margin: '1.5rem auto' }}>
                     <span style={{ fontSize: "1rem", color: '#808080' }}>付款账号</span>
-                    <span style={{ fontSize: "1rem", float: 'right' }}>{curItem['付款账号'] || curItem['卡号']}</span>
+                    <span style={{ fontSize: "1rem", float: 'right' }}>{curItem['付款账号'] }</span>
                   </div>
                 )
               }
@@ -227,10 +237,10 @@ const Detail = (props) => {
                 )
               }
               {
-                curItem?.channel && (
+               ( curItem?.channel || curItem['交易渠道']) && (
                   <div style={{ width: '84.5vw', margin: '1.5rem auto' }}>
                     <span style={{ fontSize: "1rem", color: '#808080' }}>交易渠道</span>
-                    <span style={{ fontSize: "1rem", float: 'right' }}>{curItem?.channel}</span>
+                    <span style={{ fontSize: "1rem", float: 'right' }}>{curItem?.channel || curItem['交易渠道']}</span>
                   </div>
                 )
               }

@@ -202,7 +202,7 @@ const ListPage = () => {
 
 
   // console.log(showFloat,'---showFloat')
-  // console.log(dataList, year, month, floatData,'---dataList')
+  // console.log(dataList, '---dataList')
   return (
     <div className='listPage'>
       <div className='listPage-top'>

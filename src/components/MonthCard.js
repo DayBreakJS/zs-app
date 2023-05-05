@@ -45,7 +45,7 @@ const MonthCard = (props) => {
   const CardDayItem = () => {
     return Object.keys(dayList).map(date => {
       const _date = date.split('/')
-      const dm = _date[1]?.replace(/^0/, '') + '.' + _date[2]
+      const dm = _date[1]?.replace(/^0/, '') + '.' + _date[2]?.replace(/^0/, '')
 
       return (
         <>

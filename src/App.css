@@ -62,7 +62,7 @@ body {
 }
 
 .TabBar {
-  width: 100%;
+  width: 100vw;
   position: fixed;
   bottom: 0;
   height: 7vh;
