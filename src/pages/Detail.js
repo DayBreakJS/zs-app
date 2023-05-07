@@ -13,6 +13,8 @@ import data0877 from '../data/0877.json'
 import data8562 from '../data/8562.json'
 import data2023 from '../data/2023.json'
 import data2023_8562 from '../data/2023-8562.json'
+import data20208562 from '../data/20208562.json'
+
 
 
 import { formatRMB, typeIcon } from "../utils"
@@ -58,24 +60,47 @@ const Detail = (props) => {
   } else if (cardName == '一卡通(0877)') {
     _data = data0877
   } else if (cardName == '一卡通(8562)') {
-    _data = data8562
+    if (id.indexOf('2023') > -1) {
+      _data = data2023_8562
+    } else {
+      _data = data8562
+    }
   } else {
     _data = data2023_8562
   }
-  const curItem = _.find(_data, { 'date': id, })
+  const datas = [...data, ...data2023, ...data0877, ...data2023_8562, ...data8562, ...data20208562]
+  const curItem = _.find(datas, { 'date': id, })
+  
+  if (curItem) {
+  
+    const date1 = moment(id, "YYYY/MM/DD");
+    const date2 = moment("2019/07/19", "YYYY/MM/DD")
+    // console.log(curItem,'---date1, date2')
 
   if (cardName == '全部账户') {
     cardNum = curItem['__EMPTY_1']
   } else if (cardName == '一卡通(0877)') {
     cardNum = '4682********0877'
   } else if (cardName == '一卡通(8562)') {
-    cardNum = '6214********8562'
+    
+    if (date1.diff(date2) < 0) {
+      cardNum = '4100********8562'
+    } else {
+      cardNum = '6214********8562'
+    }
+    
+    if (curItem?.title?.indexOf('爱立信')>-1) {
+      cardNum = '4100********8562'
+
+    }
+
   } else {
     cardNum = curItem['__EMPTY_1'] || '全部账户'
   }
+  }
 
   // console.log(cardName, '--cardName')
-  // console.log(_data, '--cardName')
+  // console.log(curItem, '--curItem')
 
   const Loading = () => {
     return (
@@ -116,16 +141,16 @@ const Detail = (props) => {
 
   let money = ''
   if (curItem?.amount > 0) {
-    if (curItem['币种符号'] == '欧') {
+    if (curItem&&curItem['币种符号'] == '欧') {
       money = `+ € ${formatRMB(curItem?.amount).replace('¥', '') }`
     } else {
       money = `+ ${formatRMB(curItem?.amount, curItem['币种符号'])}`
     }
   } else {
-    if (curItem['币种符号'] == '欧') {
+    if (curItem &&curItem['币种符号'] == '欧') {
       money = `- € ${formatRMB(curItem?.amount * -1).replace('¥', '') }`
     } else {
-      money = `- ${formatRMB(curItem?.amount * -1, curItem['币种符号'])}`
+      money = `- ${formatRMB(curItem?.amount * -1, curItem&&curItem['币种符号'])}`
     }
   }
 
@@ -141,7 +166,7 @@ const Detail = (props) => {
         交易详情
       </NavBar>
       {
-        loading ? <Loading /> : (
+        (loading || !curItem )? <Loading /> : (
           <>
             <div className='detail-Page-card'>
               <div style={{ width: '100%', margin: '0 auto', textAlign: 'center' }}>

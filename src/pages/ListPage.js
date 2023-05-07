@@ -12,9 +12,11 @@ import { sleep } from 'antd-mobile/es/utils/sleep'
 import CardListSelect from '../components/CardListSelect'
 import { formatRMB } from "../utils"
 import data0877 from '../data/0877.json'
-import data8562 from '../data/8562'
+import data8562 from '../data/8562.json'
 import data2023 from '../data/2023.json'
 import data2023_8562 from '../data/2023-8562.json'
+import data20208562 from '../data/20208562.json'
+
 
 
 const _dataColumns = [
@@ -33,6 +35,8 @@ const _dataColumns = [
     { label: '2', value: '02' },
     { label: '3', value: '03' },
     { label: '4', value: '04' },
+    { label: '5', value: '05' },
+
 
   ]
 
@@ -44,9 +48,8 @@ const ListPage = () => {
   const _cardName = sessionStorage.getItem('cardName');
   const datess = filterDate?.split(',')
 
-
   const [year, setYear] = React.useState(datess[0] === 'null' ? '2023' : datess[0])
-  const [month, setMonth] = React.useState((datess[1] === 'null' || !datess[1]) ? '04' : datess[1])
+  const [month, setMonth] = React.useState((datess[1] === 'null' || !datess[1]) ? '05' : datess[1])
   const [visible, setVisible] = useState(false)
   const [cardVisible, setCardVisible] = useState(false)
   const [cardName, setCardName] = useState(_cardName === 'null' ? '全部账户' : _cardName)
@@ -60,7 +63,12 @@ const ListPage = () => {
     if (year == '2023') {
       _data = data2023_8562
     } else {
-      _data = data8562
+      if (year == '2020') {
+        _data = data20208562
+      } else {
+        _data = data8562
+
+      }
     }
   } 
 
@@ -138,6 +146,8 @@ const ListPage = () => {
         { label: '2', value: '02' },
         { label: '3', value: '03' },
         { label: '4', value: '04' },
+        { label: '4', value: '05' },
+
       ]
       setDataColumns(_dataColumns)
     }
@@ -151,9 +161,9 @@ const ListPage = () => {
   }
   const onChange =  (value) => {
     setCardVisible(false)
-    setTimeout(async  ()=>{
-      const append = await mockRequest(DATALIST[value] || data2023_8562, year, month)
-     
+    setTimeout(async () => {
+      const items = year == '2023' ? data2023_8562 : DATALIST[value] || data2023_8562
+      const append = await mockRequest(items, year, month)
       setDataList(append)
       setCardName(value)
       sessionStorage.setItem('cardName', value)
@@ -168,7 +178,8 @@ const ListPage = () => {
     setShowFloat(false)
     // setPym({py,pm})
     setTimeout(async () => {
-      const append = await mockRequest(DATALIST[cardName] || data2023_8562, year, month)
+      const items = year == '2020' ? data20208562 : DATALIST[cardName] || data2023_8562
+      const append = await mockRequest(items, year, month)
       setDataList(append)
       setHasMore(true)
       setYear(year)
@@ -260,7 +271,12 @@ const ListPage = () => {
         </div>
       </div>
       {/* 卡号 */}
-      <CardListSelect cardName={cardName} onChange={onChange} cardVisible={cardVisible} setCardVisible={setCardVisible} />
+      <CardListSelect
+        cardName={cardName}
+        onChange={onChange}
+        cardVisible={cardVisible}
+        setCardVisible={setCardVisible}
+      />
       <Popup
         visible={visible}
         showCloseButton
