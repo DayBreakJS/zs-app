@@ -5,7 +5,7 @@ import { Space, Switch, NavBar, Badge, Loading } from 'antd-mobile'
 import { RightOutline, MoreOutline, QuestionCircleOutline } from 'antd-mobile-icons'
 import { useNavigate, useLocation } from "react-router-dom";
 import './detail.css'
-import data from '../billdata.json'
+// import data from '../billdata.json'
 import _ from 'lodash'
 import moment from 'moment'
 
@@ -28,12 +28,14 @@ const icons = {
   '许宝丹': 'tx',
   '史新华': 'tx',
   '李辉美': 'tx',
+  '邢来君':'tx',
   '邓鲁民':'tx',
   '孙茜': 'tx',
   '结息': 'wx',
   '汇款接单（零售汇款接单）': 'wx',
   '业务处理通讯费（境外途径汇款）': 'wx',
-  '财付通-微信转账': 'wx'
+  '财付通-微信转账': 'wx',
+  '银联ATM取款中国银行':'wx'
 }
 
 
@@ -54,7 +56,7 @@ const Detail = (props) => {
 
 
   let cardNum = ''
-  let _data = data
+  let _data = data2023
   if (cardName == '全部账户') {
     _data = data2023
   } else if (cardName == '一卡通(0877)') {
@@ -68,7 +70,7 @@ const Detail = (props) => {
   } else {
     _data = data2023_8562
   }
-  const datas = [...data, ...data2023, ...data0877, ...data2023_8562, ...data8562, ...data20208562]
+  const datas = [...data2023, ...data2023_8562, ...data8562, ...data20208562, ...data0877,]
   const curItem = _.find(datas, { 'date': id, })
   
   if (curItem) {
@@ -160,6 +162,7 @@ const Detail = (props) => {
   const titleWidth = curItem?.title?.length > 20 ? { display: 'inline-block', width: '75vw' } : {}
   const imgWidth = curItem?.title?.length > 20 ? { marginTop: '-5px' } : {}
 
+
   return (
     <div className='detail-Page'>
       <NavBar className='detail-Page-NavBar' right={right} onBack={back}>
@@ -172,10 +175,7 @@ const Detail = (props) => {
               <div style={{ width: '100%', margin: '0 auto', textAlign: 'center' }}>
                 {<Space style={{ marginTop: '1.5rem' }} align={align}>
                   {curItem?.title && <img style={{ width: '1.5rem', ...imgWidth }} src={require(`./../img/ttIcon/${icons[curItem?.title] || 'dp'}.png`)} />}
-                  <span style={{
-                    fontSize: '1rem', color: '#808080',
-                    ...titleWidth
-                  }}>{curItem?.title}</span>
+                  <span style={{ fontSize: '1rem', color: '#808080', ...titleWidth }}>{curItem?.title}</span>
                 </Space>}
 
               </div>
@@ -246,7 +246,7 @@ const Detail = (props) => {
               }
 
               {
-                (cardName == '一卡通(8562)' &&  curItem['付款账号']) && (
+                ((cardName == '一卡通(8562)' || curItem?.title?.indexOf('爱立信')>-1)&&  curItem['付款账号'] ) && (
                   <div style={{ width: '84.5vw', margin: '1.5rem auto' }}>
                     <span style={{ fontSize: "1rem", color: '#808080' }}>付款账号</span>
                     <span style={{ fontSize: "1rem", float: 'right' }}>{curItem['付款账号'] }</span>
@@ -310,7 +310,7 @@ const Detail = (props) => {
                     <img src={require(`./../img/typeIcon/${typeIcon[curItem?.icon] || '现金'}.png`)}
                       style={{ width: '1.6rem', position: "relative", top: '2px' }} />
                     <span>{curItem?.icon}</span>
-                    {cardName ? <img src={require('./../img/info.png')} style={{ width: '1.3rem' }} /> : <RightOutline style={{ color: '#808080' }} /> }
+                    {cardName ? <img src={require('./../img/info.png')} style={{ width: '1.2rem',marginTop:'1px' }} /> : <RightOutline style={{ color: '#808080' }} /> }
                   </Space>
                 </span>
               </div>

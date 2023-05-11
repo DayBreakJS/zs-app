@@ -77,6 +77,7 @@ const MonthCard = (props) => {
                   onClick={() => {
                     setTimeout(() => {
                       navigate(`/detail?id=${item.date}&cardName=${cardName}`)
+                      sessionStorage.setItem('numberLoading', true)
                     }, 100);
                   }}>
                   <div
@@ -145,6 +146,8 @@ const MonthCard = (props) => {
   }, [handleScroll]);
 
   const curMonthStyle = { height: '17vh', paddingBottom: '1rem' }
+  const numberLoading = sessionStorage.getItem('numberLoading')
+
 
   return React.useMemo(() => (
     <div className='MonthCard'  >
@@ -163,17 +166,17 @@ const MonthCard = (props) => {
           </Space>
           <Space className='MonthCard-img-box-money'>
             <Space align="center">支出&nbsp;<span style={{ fontWeight: 500, fontSize: '1rem' }}>
-              { <>
-                ￥ <CountUp start={0} decimals={2} end={expend} duration={0.5} />
+              {<>
+                ￥ {numberLoading == 'true' ? expend : <CountUp start={0} decimals={2} end={expend} duration={0.5} />}  
               </>}
             </span>
             </Space>
             <Space align="center">收入&nbsp;<span style={{ fontWeight: 500, fontSize: '1rem' }}>
               {/* {formatRMB(income)} */}
-              { <>
-                ￥ <CountUp start={0} decimals={2} end={income} duration={0.5} />
+              {<>
+                ￥ {numberLoading == 'true' ? expend : <CountUp start={0} decimals={2} end={income} duration={0.5} />}
               </>}
-              {curMonth && !loading && <InformationCircleOutline style={{fontSize:'0.8rem',marginLeft:'0.4rem'}} />}
+              {curMonth && !loading && <InformationCircleOutline style={{ fontSize: '0.8rem', marginLeft: '0.4rem' }} />}
 
             </span>
             </Space>

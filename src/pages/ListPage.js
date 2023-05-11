@@ -120,6 +120,7 @@ const ListPage = () => {
 
   const back = () => {
     navigate('/home')
+    sessionStorage.setItem('numberLoading', false)
     localStorage.setItem('filterDate', null)
     window?.StatusBar?.styleLightContent();
     window.scrollTo(0, 10)
@@ -146,7 +147,7 @@ const ListPage = () => {
         { label: '2', value: '02' },
         { label: '3', value: '03' },
         { label: '4', value: '04' },
-        { label: '4', value: '05' },
+        { label: '5', value: '05' },
 
       ]
       setDataColumns(_dataColumns)
@@ -178,7 +179,14 @@ const ListPage = () => {
     setShowFloat(false)
     // setPym({py,pm})
     setTimeout(async () => {
-      const items = year == '2020' ? data20208562 : DATALIST[cardName] || data2023_8562
+      let items = DATALIST[cardName] 
+      if (year == '2020') {
+        items = data20208562
+      }
+      if (year == '2023') {
+        items = data2023_8562
+      }
+      // const items = year == '2020' ? data20208562 : DATALIST[cardName] || data2023_8562
       const append = await mockRequest(items, year, month)
       setDataList(append)
       setHasMore(true)
